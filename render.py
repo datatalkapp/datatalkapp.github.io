@@ -6,10 +6,7 @@ import yaml
 template_env = jinja2.Environment(loader=jinja2.FileSystemLoader('./templates'))
 shutil.rmtree('./static', ignore_errors=True)
 os.mkdir('./static')
-template = template_env.get_template('home.html')
 
-with open('./static/index.html', 'w') as f:
-    f.write(template.render())
     
 with open('./blog.yml', 'r') as f:
     blog = yaml.safe_load(f)
@@ -27,4 +24,8 @@ for post in blog['posts']:
 
 template = template_env.get_template('blog.html')
 with open('./static/blog/index.html', 'w') as f:
+    f.write(template.render(blog=blog))
+
+template = template_env.get_template('home.html')
+with open('./static/index.html', 'w') as f:
     f.write(template.render(blog=blog))
