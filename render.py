@@ -14,14 +14,17 @@ with open('./static/index.html', 'w') as f:
 with open('./blog.yml', 'r') as f:
     blog = yaml.safe_load(f)
 
+# make blog dir in static
+os.mkdir('./static/blog')
+
 for post in blog['posts']:
     slug = post['slug']
-    os.mkdir('./static/' + slug)
+    os.mkdir('./static/blog/' + slug)
     template = template_env.get_template('post.html')
-    with open('./static/' + slug + '/index.html', 'w') as f:
+    with open('./static/blog/' + slug + '/index.html', 'w') as f:
         f.write(template.render(post=post))
-    shutil.copyfile('./images/' + post['image'], './static/' + slug + '/' + post['image'])
+    shutil.copyfile('./images/' + post['image'], './static/blog/' + slug + '/' + post['image'])
 
 template = template_env.get_template('blog.html')
-with open('./static/blog.html', 'w') as f:
+with open('./static/blog/index.html', 'w') as f:
     f.write(template.render(blog=blog))
