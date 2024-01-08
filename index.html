@@ -1,227 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DataTalk</title>
+    <title>DataTalk - Transform Documents into Insights</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<style>
-    * {
-        margin: 0;
-        padding: 0;
-        color: #FFF;
-        overflow: hidden;
-    }
-
-    body {
-        background-color: #26547C;
-    }
-
-    h1 {
-        color: #ffffff;
-        font-family: 'Roboto', sans-serif;
-        font-size: 50px;
-        font-weight: 900;
-        letter-spacing: 5px;
-        line-height: 50px;
-        text-align: center;
-    }
-
-    p {
-        color: #ffffff;
-        font-family: 'Roboto', sans-serif;
-        font-size: 20px;
-        letter-spacing: 1px;
-        line-height: 20px;
-        text-align: center;
-    }
-
-    a {
-        color: #ffffff;
-        font-family: 'Roboto', sans-serif;
-        font-size: 20px;
-        letter-spacing: 1px;
-        line-height: 20px;
-        text-align: center;
-
-    }
-
-    .center {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-
-    }
-
-    .footer {
-        bottom: 0;
-        width: 100%;
-        text-align: center;
-        font-size: 0.5em;
-    }
-</style>
-
 <body>
-    <div class="center">
-        <h1>DataTalk</h1>
-        <p>Talk to your Data with AI.</p>
-        <p><a href="mailto:mail@datatalk.app">mail@datatalk.app</a></p>
-        <p class="footer">Made with ❤️ in Limburg, Belgium</p>
-    </div>
-    <script>
-        /*
-* File Name / glitteringSea.js
-* Created Date / Aug 14, 2020
-* Aurhor / Toshiya Marukubo
-* Twitter / https://twitter.com/toshiyamarukubo
-*/
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                DataTalk
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#hero">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#demo">Demo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/blog">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="mailto:mail@datatalk.app">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-        (function () {
-            'use strict';
-            window.addEventListener('load', function () {
-                var canvas = document.getElementById('canvas');
+    <!-- Hero Section -->
+    <section class="container-fluid py-5 text-center bg-light">
+        <h1 class="display-4 fw-bold">Transform Documents into Insights with Ease</h1>
+        <p class="lead">Leverage the power of Generative AI and Large Language Models to make your business documents work for you.</p>
+    </section>
 
-                if (!canvas || !canvas.getContext) {
-                    return false;
-                }
+    <!-- Features Section -->
+    <section class="container py-5">
+        <div class="row g-4">
+            <!-- Feature 1 -->
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Effortless Integration</h5>
+                        <p class="card-text">Quickly integrate DataTalk with your existing systems and workflows.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Feature 2 -->
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Enhanced Data Privacy</h5>
+                        <p class="card-text">Use local open-source models to handle sensitive data without cloud uploads.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Feature 3 -->
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Automated Data Processing</h5>
+                        <p class="card-text">Automate the processing of new data with our sophisticated pipeline feature.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                /********************
-                  Random Number
-                ********************/
+    <!-- Interactive Demo Section -->
+    <section class="container-fluid py-5 bg-secondary text-white text-center">
+        <h2 class="fw-bold">See DataTalk in Action</h2>
+        <p>Get in touch with us to see DataTalk in action and learn what DataTalk can do for your business.</p>
+        <a href="mailto:mail@datatalk.app" class="btn btn-outline-light btn-lg">Get in touch</a>
+    </section>
 
-                function rand(min, max) {
-                    return Math.floor(Math.random() * (max - min + 1) + min);
-                }
+    <!-- Technical Details Section -->
+    <section class="container py-5">
+        <h2 class="text-center mb-4">Advanced Technology</h2>
+        <p>Learn more about how DataTalk utilizes advanced language models like ChatGPT and open-source options for enhanced data security.</p>
+        <!-- More details or a link to a dedicated page -->
+    </section>
 
-                /********************
-                  Var
-                ********************/
+    <!-- Footer -->
+    <footer class="container-fluid bg-dark text-white py-4">
+        <div class="text-center">
+            <p>&copy; 2024 DataTalk. All rights reserved.</p>
+            <!-- Social media links, contact info, etc. -->
+        </div>
+    </footer>
 
-                var ctx = canvas.getContext('2d');
-                var X = canvas.width = window.innerWidth;
-                var Y = canvas.height = window.innerHeight;
-                var mouseX = null;
-                var mouseY = null;
-                var shapeNum = 300;
-                var shapes = [];
-                var style = {
-                    black: 'black',
-                    white: 'white',
-                    lineWidth: 4,
-                };
-
-                /********************
-                  Animation
-                ********************/
-
-                window.requestAnimationFrame =
-                    window.requestAnimationFrame ||
-                    window.mozRequestAnimationFrame ||
-                    window.webkitRequestAnimationFrame ||
-                    window.msRequestAnimationFrame ||
-                    function (cb) {
-                        setTimeout(cb, 17);
-                    };
-
-                /********************
-                  Shape
-                ********************/
-
-                function Shape(ctx, x, y) {
-                    this.ctx = ctx;
-                    this.init(x, y);
-                }
-
-                Shape.prototype.init = function (x, y) {
-                    this.x = x;
-                    this.y = y;
-                    this.r = rand(10, 25);
-                    this.ga = Math.random() * Math.random() * Math.random() * Math.random();
-                    this.v = {
-                        x: Math.random(),
-                        y: -1
-                    };
-                    this.l = rand(0, 20);
-                    this.sl = this.l;
-                };
-
-                Shape.prototype.updateParams = function () {
-                    var ratio = this.l / this.sl;
-                    //this.r *= ratio;
-                    this.l -= 1;
-                    if (this.l < 0) {
-                        this.init(X * (Math.random() + Math.random()) / 2, rand(0, Y));
-                    }
-                };
-
-                Shape.prototype.updatePosition = function () {
-                    this.x += Math.random();
-                    this.y += -Math.random();
-                };
-
-                Shape.prototype.draw = function () {
-                    var ctx = this.ctx;
-                    ctx.save();
-                    ctx.globalCompositeOperation = 'lighter';
-                    ctx.globalAlpha = this.ga;
-                    //ctx.fillStyle = 'rgb(123, 252, 100)';
-                    ctx.fillStyle = 'white';
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2, false);
-                    ctx.fill();
-                    ctx.restore();
-                };
-
-                Shape.prototype.render = function (i) {
-                    this.updatePosition();
-                    this.updateParams();
-                    this.draw();
-                };
-
-                for (var i = 0; i < shapeNum; i++) {
-                    var s = new Shape(ctx, X * (Math.random() + Math.random()) / 2, rand(0, Y));
-                    shapes.push(s);
-                }
-
-                /********************
-                  Render
-                ********************/
-
-                function render() {
-                    ctx.clearRect(0, 0, X, Y);
-                    for (var i = 0; i < shapes.length; i++) {
-                        shapes[i].render(i);
-                    }
-                    requestAnimationFrame(render);
-                }
-
-                render();
-
-                /********************
-                  Event
-                ********************/
-
-                function onResize() {
-                    X = canvas.width = window.innerWidth;
-                    Y = canvas.height = window.innerHeight;
-                }
-
-                window.addEventListener('resize', function () {
-                    onResize();
-                });
-
-                window.addEventListener('mousemove', function (e) {
-                    mouseX = e.clientX;
-                    mouseY = e.clientY;
-                }, false);
-
-            });
-        })();
-
-    </script>
-    <canvas id="canvas">Canvas not supported.</canvas>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>
