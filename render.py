@@ -29,3 +29,29 @@ with open('./static/blog/index.html', 'w') as f:
 template = template_env.get_template('home.html')
 with open('./static/index.html', 'w') as f:
     f.write(template.render(blog=blog))
+
+import datetime
+
+# create list of urls
+
+urls = []
+
+for post in blog['posts']:
+    urls.append('https://datatalk.app/blog/' + post['slug'] + '/')
+
+urls.append('https://datatalk.app/blog/')
+urls.append('https://datatalk.app/')
+
+sitemap = [
+    {"loc": url, "lastmod": datetime.datetime.now().strftime("%Y-%m-%d"), "changefreq": "monthly"} for url in urls
+]
+
+template = template_env.get_template('sitemap.xml')
+with open('./static/sitemap.xml', 'w') as f:
+    f.write(template.render(sitemap=sitemap))
+
+
+# create robots.txt
+template = template_env.get_template('robots.txt')
+with open('./static/robots.txt', 'w') as f:
+    f.write(template.render())
