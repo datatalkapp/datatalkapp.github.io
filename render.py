@@ -2,6 +2,8 @@ import jinja2
 import shutil
 import os
 import yaml
+import datetime
+
 
 template_env = jinja2.Environment(loader=jinja2.FileSystemLoader('./templates'))
 shutil.rmtree('./static', ignore_errors=True)
@@ -30,7 +32,8 @@ template = template_env.get_template('home.html')
 with open('./static/index.html', 'w') as f:
     f.write(template.render(blog=blog))
 
-import datetime
+# copy homepage.webp from images to static
+shutil.copyfile('./images/homepage.webp', './static/homepage.webp')
 
 # create list of urls
 
@@ -50,8 +53,7 @@ template = template_env.get_template('sitemap.xml')
 with open('./static/sitemap.xml', 'w') as f:
     f.write(template.render(sitemap=sitemap))
 
-
-# create robots.txt
 template = template_env.get_template('robots.txt')
 with open('./static/robots.txt', 'w') as f:
     f.write(template.render())
+
