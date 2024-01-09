@@ -33,6 +33,8 @@ template = template_env.get_template('home.html')
 with open('./static/index.html', 'w') as f:
     f.write(template.render(blog=blog))
 shutil.copyfile('./images/homepage.webp', './static/homepage.webp')
+shutil.copyfile('./videos/movie_with_audio.mp4', './static/movie_with_audio.mp4')
+
 
 # Sitemap
 urls = []
