@@ -85,4 +85,33 @@
 {% endfor %}
 </section>
 
+<section id="faq" class="container-fluid py-5 bg-light">
+    <h2 class="text-center mb-4">Frequently Asked Questions</h2>
+
+    <div class="accordion" id="faqAccordion">
+        {% for question in faq.questions %}
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading{{ loop.index }}">
+                    <button class="accordion-button collapsed" type="button" 
+                            data-bs-toggle="collapse" 
+                            data-bs-target="#collapse{{ loop.index }}" 
+                            aria-expanded="false" 
+                            aria-controls="collapse{{ loop.index }}">
+                        {{ question.question }}
+                    </button>
+                </h2>
+                <div id="collapse{{ loop.index }}" class="accordion-collapse collapse" 
+                     aria-labelledby="heading{{ loop.index }}" 
+                     data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        {{ question.answer }}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    
+
+  </section>
+  
 {% endblock %}

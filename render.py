@@ -30,14 +30,15 @@ with open('./static/blog/index.html', 'w', encoding='utf-8') as f:
     f.write(template.render(blog=blog))
 
 # Home
+with open('./faq.yml', 'r') as f:
+    faq = yaml.safe_load(f)
 template = template_env.get_template('home.html')
-with open('./static/index.html', 'w', encoding='utf-8') as f:
-    f.write(template.render(blog=blog))
+with open('./static/index.html', 'w') as f:
+    f.write(template.render(blog=blog, faq=faq))
 
 # copy all files from ./images to ./static
 shutil.copytree('./images', './static/images')
 shutil.copyfile('./videos/movie_with_audio.mp4', './static/movie_with_audio.mp4')
-
 
 # Sitemap
 urls = []
@@ -56,4 +57,3 @@ with open('./static/sitemap.xml', 'w') as f:
 template = template_env.get_template('robots.txt')
 with open('./static/robots.txt', 'w') as f:
     f.write(template.render())
-

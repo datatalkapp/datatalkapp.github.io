@@ -1,0 +1,21 @@
+questions:
+  - question: "How does DataTalk work?"
+    answer: "DataTalk functions by utilizing Large Language Models (such as ChatGPT) to analyze and process data, offering insights and facilitating data-driven decisions."
+
+  - question: "How does DataTalk protect data privacy and security?"
+    answer: "DataTalk ensures data privacy and security through rigorous encryption, compliance with data protection regulations, and implementing robust cybersecurity measures. Also, our solution offers on-premise deployment, ensuring data remains within the client's network. Our solution can also employ local language models, ensuring data never leaves the client's network."
+
+  - question: "How does DataTalk handle data ownership?"
+    answer: "DataTalk respects data ownership by adhering to legal frameworks, ensuring clients retain control and rights over their data."
+
+  - question: "What is the pricing for DataTalk?"
+    answer: "The pricing for DataTalk varies based on the services chosen, data volume, and specific client needs, with custom solutions available."
+
+  - question: "How does DataTalk integrate with existing systems?"
+    answer: "DataTalk integrates seamlessly with existing systems using APIs and customizable integration tools, ensuring compatibility and efficiency. Is there a system that DataTalk does not integrate with yet? Let us know and we will make it happen!"
+
+  - question: "How does DataTalk remain up-to-date with the latest documents?"
+    answer: "DataTalk stays current with the latest documents through continuous updates, leveraging real-time data feeds and APIs to ensure the most recent information is available."
+
+  - question: "What is the status of the product and what are the next steps?"
+    answer: "The current status of DataTalk involves ongoing development and refinement, with future steps including enhanced features, expanded integration capabilities, and broader market outreach."
