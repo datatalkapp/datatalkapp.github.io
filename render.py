@@ -10,6 +10,9 @@ template_env = jinja2.Environment(loader=jinja2.FileSystemLoader('./templates'))
 shutil.rmtree('./static', ignore_errors=True)
 os.mkdir('./static')
 
+# Copy font files
+shutil.copytree('./fonts', './static/fonts')
+
 # Blog
 with open('./blog.yml', 'r') as f:
     blog = yaml.safe_load(f)
