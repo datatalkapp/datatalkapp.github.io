@@ -10,6 +10,9 @@ template_env = jinja2.Environment(loader=jinja2.FileSystemLoader('./templates'))
 shutil.rmtree('./static', ignore_errors=True)
 os.mkdir('./static')
 
+# Copy font files
+shutil.copytree('./fonts', './static/fonts')
+
 # Blog
 with open('./blog.yml', 'r') as f:
     blog = yaml.safe_load(f)
@@ -29,6 +32,9 @@ with open('./static/blog/index.html', 'w') as f:
 template = template_env.get_template('home.html')
 with open('./static/index.html', 'w') as f:
     f.write(template.render(blog=blog))
+
+# copy all files from ./images to ./static
+shutil.copytree('./images', './static/images')
 shutil.copyfile('./videos/movie_with_audio.mp4', './static/movie_with_audio.mp4')
 
 
