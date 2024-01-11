@@ -72,20 +72,21 @@
 <section class="container py-5">
     <h2 class="text-center mb-4">Latest Blog Posts</h2>
     <div class="row">
-
-{% for post in blog.posts %}
-    <div class="col-md-4">
-        <div class="card">
-            <img src="./blog/{{post.slug}}/{{post.image}}" class="card-img-top" alt="Blog Post Image">
-            <div class="card-body">
-                <h5 class="card-title">{{ post.title }}</h5>
-                <p class="card-text">{{ post.short }}</p>
-                <a href="./blog/{{post.slug}}" class="btn btn-primary">Read More</a>
+        {% for post in blog.posts %}
+        <div class="col-md-4 d-flex align-items-stretch">
+            <div class="card w-100">
+                <img src="./blog/{{post.slug}}/{{post.image}}" class="card-img-top" alt="Blog Post Image">
+                <div class="card-body">
+                    <h5 class="card-title">{{ post.title }}</h5>
+                    <p class="card-text">{{ post.short }}</p>
+                    <a href="./blog/{{post.slug}}" class="btn btn-primary">Read More</a>
+                </div>
             </div>
         </div>
+        {% endfor %}
     </div>
-{% endfor %}
-</div>
+</section>
+
 
 </section>
 
