@@ -21,11 +21,12 @@ for post in blog['posts']:
     slug = post['slug']
     os.mkdir('./static/blog/' + slug)
     template = template_env.get_template('post.html')
-    with open('./static/blog/' + slug + '/index.html', 'w') as f:
+    with open('./static/blog/' + slug + '/index.html', 'w', encoding='utf-8') as f:
         f.write(template.render(post=post))
+
     shutil.copyfile('./images/' + post['image'], './static/blog/' + slug + '/' + post['image'])
 template = template_env.get_template('blog.html')
-with open('./static/blog/index.html', 'w') as f:
+with open('./static/blog/index.html', 'w', encoding='utf-8') as f:
     f.write(template.render(blog=blog))
 
 # Home

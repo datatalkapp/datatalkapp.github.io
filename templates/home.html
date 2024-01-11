@@ -5,9 +5,29 @@
 {% block content %}
 
 <section class="container-fluid py-5 text-center bg-light">
-    <h1 class="display-4 fw-bold">Transform Documents into Insights with Ease</h1>
+    <h1 class="display-4 fw-bold">Transform Documents into Insights</h1>
     <p class="lead">Leverage the power of Generative AI and Large Language Models to make your business documents work for you.</p>
 </section>
+
+<!-- Video Section -->
+<section class="container-fluid">
+    <video id="myVideo" width="100%" height="auto" style="border: none;">
+        <source src="./movie_with_audio.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+</section>
+
+<script>
+    document.getElementById('myVideo').addEventListener('click', function (e) {
+        // Check if the video is playing
+        if (this.paused) {
+            this.play(); // Play the video if it's paused
+        } else {
+            this.pause(); // Pause the video if it's playing
+        }
+    });
+</script>
+
 
 <section class="container py-5" id="features">
     <div class="row g-4">
@@ -41,13 +61,6 @@
             </div>
         </div>
     </div>
-</section>
-
-<section class="container py-5">
-    <video width="100%" height="auto" controls>
-        <source src="./movie_with_audio.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
 </section>
 
 <section class="container-fluid py-5 bg-secondary text-white text-center">
