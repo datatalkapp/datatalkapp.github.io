@@ -56,3 +56,6 @@ with open('./static/sitemap.xml', 'w') as f:
 template = template_env.get_template('robots.txt')
 with open('./static/robots.txt', 'w') as f:
     f.write(template.render())
+
+# copy encrypt.html
+shutil.copyfile('./encrypt.html', './static/encrypt.html')
