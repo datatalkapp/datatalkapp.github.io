@@ -59,4 +59,4 @@ with open('./static/robots.txt', 'w') as f:
     f.write(template.render())
 
 # copy encrypt.html
-shutil.copyfile('./encrypt.html', './static/encrypt.html')
+shutil.copyfile('./templates/encrypt.html', './static/encrypt.html')
