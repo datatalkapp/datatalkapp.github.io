@@ -74,6 +74,35 @@ posts:
     image: "datatalk-health-insurance-transformation.webp"
 
 
+  - author: "Thomas van Turnhout"
+    date: "January 15, 2024"
+    title: "Sharing Our Tools, Hiding Your Data: Our Open-Source Approach"
+    slug: "open-source-secure-sharing"
+    short: "Discover DataTalk's innovative approach to secure document sharing with open-source tools."
+    content: >
+      <p>At DataTalk, we are pioneering a new era in secure document sharing, rooted in our deep commitment to open-source innovation. Today, I'm excited to introduce a groundbreaking tool that is reshaping how we share sensitive information: the Secure HTML Encryptor.</p>
+      <p>This tool, a cornerstone of DataTalk's technology, is designed to encrypt HTML documents like presentations and slides, ensuring they are securely shared and accessed. It represents our vision of combining data security with the collaborative spirit of open-source development.</p>
+      <h2>Introducing the Secure HTML Encryptor</h2>
+      <ul>
+          <li><strong>Advanced Encryption</strong>: Our tool encrypts HTML content with a password, making it accessible only to intended recipients.</li>
+          <li><strong>Self-Decrypting Mechanism</strong>: Designed for user-friendliness, the tool allows for seamless decryption of content upon entering the correct password.</li>
+          <li><strong>Open-Source Availability</strong>: True to our open-source ethos, the Secure HTML Encryptor is available on our GitHub repository, inviting collaboration and community-driven improvements.</li>
+      </ul>
+      <p>Our approach to secure sharing is not just about providing a tool; it's about fostering a community where security and openness coexist. The Secure HTML Encryptor is a testament to this, ensuring that sensitive information remains protected while embracing the principles of open-source development.</p>
+      <h2>Join Us in Shaping the Future of Secure Sharing</h2>
+      <p>We are excited to invite you to explore
+      and contribute to the Secure HTML Encryptor project. Whether you're looking to secure your own documents or interested in the intersection of open-source development and data security, your involvement is key to our collective success.</p>
+      <p>Discover more about the Secure HTML Encryptor and how it can transform the way you share information securely. Visit our GitHub repository at <a href="https://github.com/datatalkapp/encrypt-html">https://github.com/datatalkapp/encrypt-html</a> to get started.</p>
+      <p>Your feedback, contributions, and innovative ideas are what drive us forward in this journey. Together, let's redefine the standards of secure document sharing in an open-source world.</p>
+      <p>If you have questions, suggestions, or want to discuss how DataTalk can revolutionize your business, don't hesitate to reach out to us at <a href="mailto:mail@datatalk.app">mail@datatalk.app</a>.</p>
+      <p>Together, let's unlock the potential of secure, open-source solutions.</p>
+      <p>Thomas van Turnhout<br>
+      Co-Founder, DataTalk</p>
+    image: "datatalk-secure-sharing-launch.webp"
+
+
+
+
 # DataTalk for Financial Services: How advanced language models can help financial institutions extract valuable insights from financial documents, automate data entry, and improve compliance.
 # DataTalk for Healthcare: Leveraging natural language processing to extract structured data from medical records, clinical notes, and research articles to improve patient care and research.
 # DataTalk for Logistics: How advanced language models can help logistics companies extract valuable insights from shipping documents, tracking data, and customer feedback to optimize operations, reduce costs, and improve customer satisfaction.
