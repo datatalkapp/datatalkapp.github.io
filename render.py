@@ -60,3 +60,6 @@ with open('./static/robots.txt', 'w') as f:
 
 # copy encrypt.html
 shutil.copyfile('./templates/encrypt.html', './static/encrypt.html')
+
+# copy whitepaper
+shutil.copyfile('./templates/whitepaper.html', './static/whitepaper.html')
