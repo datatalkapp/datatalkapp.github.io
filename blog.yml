@@ -1,27 +1,25 @@
 posts:
-  - author: "Koen van Eijk & Thomas van Turnhout"
-    date: "January 8, 2024"
-    title: "Introducing DataTalk: Revolutionizing Document Interaction and Business Intelligence"
-    slug: "introducing-datatalk"
-    short: "DataTalk is a new venture by the founders of Oakwood and Automagica."
+posts:
+  - author: "Thomas van Turnhout"
+    date: "April 10, 2024"
+    title: "Fluvius - DataTalk Usecase"
+    slug: "fluvius-datatalk-usecase"
+    short: "Discover how DataTalk is revolutionizing information management and design processes at Fluvius."
     content: >
-      <p>Welcome to a new chapter in our journey as entrepreneurs and innovators. After our successful venture with Oakwood and the creation of Automagica, which found a new home with Netcall in 2020, we are thrilled to announce our latest venture: DataTalk.</p>
-      <p>DataTalk is not just a product; it's a vision of transforming how businesses interact with their everyday documents. We believe that your business documents, whether they are invoices, meeting notes, or audio recordings, hold a wealth of untapped insights. DataTalk is here to unlock this potential.</p>
-      <h2>What Makes DataTalk Unique?</h2>
-      <ul>
-          <li><strong>Transformative Document Interaction</strong>: Gone are the days of manually sifting through piles of documents. With DataTalk, you can ask questions and receive structured data outputs, making your documents as interactive and informative as a conversation with an expert.</li>
-          <li><strong>Advanced Language Models</strong>: At the heart of DataTalk is the integration of sophisticated language models like ChatGPT. These models enable a deep understanding and processing of textual content, elevating the value of your documents.</li>
-          <li><strong>Open-Source, Local Models for Privacy</strong>: Recognizing the sensitivity of business data, DataTalk offers the flexibility of local, open-source models. This feature ensures that your data remains within your control, bypassing the need for cloud uploads and offering unparalleled privacy.</li>
-          <li><strong>Automated Data Processing Pipeline</strong>: Efficiency is key in business. DataTalk's sophisticated pipeline feature automates the processing of new data, seamlessly integrating with your existing systems and workflows.</li>
-      </ul>
-      <p>As founders, our commitment to open-source principles, generative AI, large language models, and automation remains steadfast. DataTalk embodies these principles, offering a powerful tool that respects user privacy while delivering exceptional value.</p>
-      <h2>Join Us on This Exciting Journey</h2>
-      <p>We're inviting you to be part of this journey. Whether you're a small business owner, a manager in a large corporation, or simply an enthusiast of cutting-edge technology, DataTalk has something for you.</p>
-      <p>Embrace the future of document interaction and business intelligence with DataTalk. Stay tuned for more updates, and feel free to reach out to us for a demo or discussion about how DataTalk can revolutionize your business.</p>
-      <p>Want to learn more? Please reach out to us at <a href="mailto:mail@datatalk.app">mail@datatalk.app</a>
-      <p>Thomas van Turnhout & Koen van Eijk<br>
-      Co-Founders, DataTalk</p>
-    image: "announcing-datatalk-launch.webp"
+      <p>At DataTalk, we take pride in our ability to transform how businesses interact with their documents and unlock valuable insights. Today, we're thrilled to share the story of how our cutting-edge technology has made a significant impact at Fluvius, a leading utility company.</p>
+      <p>Fluvius faced a common challenge: their designers needed to follow guidelines scattered across various departments and documents. This fragmented information landscape made it difficult and time-consuming for designers to access the right information at the right time. Moreover, the guidelines were subject to frequent changes, requiring constant updates to designs to ensure compliance with the latest standards.</p>
+      <p>To further complicate matters, integrating these ever-changing guidelines into the design software used for creating technical plans was a daunting task. Most of the data resided in Sharepoint, making it difficult to seamlessly incorporate into the design process. These challenges led to inefficiencies and hindered the productivity of the design team.</p>
+      <p>Enter DataTalk. Our solution provided Fluvius with a central information hub that connected and indexed all relevant guidelines and documents. This centralized repository, complete with contextual insights, allowed designers to quickly and easily access the information they needed for their projects. No more sifting through multiple sources or wasting time searching for the right document.</p>
+      <p>To ensure data security and confidentiality, DataTalk implemented dynamic access control using role-based permissions. This meant that only authorized personnel or external parties had access to the relevant project information and guidelines. Designers could focus on their work, confident that they were viewing only the information pertinent to their specific projects.</p>
+      <p>Seamless integration was key to the success of the solution. DataTalk provided direct access to the centralized information through a user-friendly chat interface and an automated pipeline. This integration with Fluvius's existing Sharepoint system allowed designers to retrieve guidelines effortlessly during the design process, without disrupting their workflow.</p>
+      <p>The added benefit is efficiency, reduced errors, and enhanced collaboration among team members. Designers can  access up-to-date guidelines instantly, ensuring their designs were always compliant with the latest standards. The centralized information hub becomes a single source of truth, eliminating confusion and inconsistencies.</p>
+      <p>What sets DataTalk apart is our commitment to flexibility and customization. Our software is fully self-developed, allowing us to tailor it to the unique needs of each client. We worked closely with Fluvius to understand their specific requirements and adapted our solution accordingly.</p>
+      <p>See DataTalk in action with the Fluvius data in our demo video: <a href="https://link.datatalk.app/r/a00c981a">https://link.datatalk.app/r/a00c981a</a></p>
+      <p>At DataTalk, we are passionate about empowering businesses like Fluvius to streamline their processes and unlock the full potential of their documents. If you're facing similar challenges or want to learn more about how DataTalk can benefit your organization, we'd love to have a conversation.</p>
+      <p>Reach out to us at <a href="mailto:mail@datatalk.app">mail@datatalk.app</a> to discover how DataTalk can revolutionize your business.</p>
+      <p>Thomas van Turnhout<br>
+      Co-Founder, DataTalk</p>
+    image: "datatalk-financial-document-insights.webp"
 
 
   - author: "Koen van Eijk"
