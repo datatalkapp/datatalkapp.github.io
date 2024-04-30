@@ -1,5 +1,4 @@
 posts:
-posts:
   - author: "Thomas van Turnhout"
     date: "April 10, 2024"
     title: "Fluvius - DataTalk Usecase"
@@ -19,7 +18,7 @@ posts:
       <p>Reach out to us at <a href="mailto:mail@datatalk.app">mail@datatalk.app</a> to discover how DataTalk can revolutionize your business.</p>
       <p>Thomas van Turnhout<br>
       Co-Founder, DataTalk</p>
-    image: "datatalk-financial-document-insights.webp"
+    image: "webdocuments.webp"
 
 
   - author: "Koen van Eijk"
