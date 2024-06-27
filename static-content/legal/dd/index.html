@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataTalk for Due Diligence</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .navbar {
+            background-color: #2c3e50;
+        }
+        .btn-primary {
+            background-color: #34495e;
+            border-color: #34495e;
+        }
+        .btn-primary:hover {
+            background-color: #2c3e50;
+            border-color: #2c3e50;
+        }
+        #sidebar {
+            min-width: 250px;
+            max-width: 250px;
+            min-height: 100vh;
+            background: #34495e;
+            color: #ecf0f1;
+            transition: all 0.3s;
+        }
+        #sidebar .nav-link {
+            color: #ecf0f1;
+            display: flex;
+            align-items: center;
+        }
+        #sidebar .nav-link:hover {
+            background: #2c3e50;
+        }
+        #sidebar .nav-link i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        .content {
+            width: 100%;
+        }
+        .file-icon {
+            font-size: 2.5rem;
+            margin-right: 10px;
+        }
+        .progress {
+            height: 5px;
+        }
+        .card {
+            border: none;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+        .alert {
+            border-left: 4px solid;
+        }
+        .alert-info {
+            border-left-color: #3498db;
+        }
+        .alert-warning {
+            border-left-color: #f39c12;
+        }
+        .btn-outline-secondary {
+            color: #34495e;
+            border-color: #34495e;
+        }
+        .btn-outline-secondary:hover {
+            background-color: #34495e;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="d-flex">
+        <!-- Sidebar -->
+        <nav id="sidebar">
+            <div class="p-4">
+                <h3>DataTalk Due Diligence</h3>
+                <ul class="list-unstyled components mb-5">
+                    <li><a href="#" class="nav-link"><i class="fas fa-tachometer-alt"></i>Dashboard</a></li>
+                    <li><a href="#" class="nav-link"><i class="fas fa-file-alt"></i>Documents</a></li>
+                    <li><a href="#" class="nav-link"><i class="fas fa-chart-bar"></i>Analytics</a></li>
+                    <li><a href="#" class="nav-link"><i class="fas fa-cog"></i>Settings</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Page Content -->
+        <div class="content">
+            <nav class="navbar navbar-expand-lg navbar-dark">
+                <div class="container-fluid">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                                    <i class="fas fa-user-circle me-2"></i>John Doe
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Profile</a></li>
+                                    <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="container-fluid mt-4">
+                <h1 class="mb-4">Legal Due Diligence Analysis</h1>
+                <div id="uploadForm">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Upload Data Room</h5>
+                            <div class="mb-3">
+                                <label for="dataRoomFile" class="form-label">Data Room .zip file</label>
+                                <input class="form-control" type="file" id="dataRoomFile" accept=".zip">
+                            </div>
+                            <div class="mb-3">
+                                <label for="requestLetter" class="form-label">Request Letter</label>
+                                <textarea class="form-control" id="requestLetter" rows="3"></textarea>
+                            </div>
+                            <button id="analyzeBtn" class="btn btn-primary"><i class="fas fa-search me-2"></i>Analyze</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="analysisProgress" style="display: none;">
+                    <h5>Analysis in Progress</h5>
+                    <div class="progress mt-2 mb-4">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+                <div id="results" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#analyzeBtn').click(function() {
+                let dataRoomFile = $('#dataRoomFile').val();
+                let requestLetter = $('#requestLetter').val();
+
+                if (!dataRoomFile || !requestLetter) {
+                    alert('Please upload a Data Room file and provide the request letter.');
+                    return;
+                }
+
+                $('#uploadForm').hide();
+                $('#analysisProgress').show();
+                
+                let progress = 0;
+                let progressInterval = setInterval(function() {
+                    progress += 10;
+                    $('.progress-bar').css('width', progress + '%').attr('aria-valuenow', progress);
+                    if (progress >= 100) {
+                        clearInterval(progressInterval);
+                        $('#analysisProgress').hide();
+                        displayResults();
+                    }
+                }, 200);
+            });
+
+            function displayResults() {
+                let analysisResults = `
+                    <div class="d-flex justify-content-between mb-3">
+                        <h5>Analysis Complete</h5>
+                        <div>
+                            <button class="btn btn-sm btn-outline-secondary me-2"><i class="fas fa-file-pdf me-1"></i>Export to PDF</button>
+                            <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-share-alt me-1"></i>Share</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <h6><i class="fas fa-check-circle text-success me-2"></i>Completeness Assessment</h6>
+                                    <ul class="list-group mb-3">
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            Organizational Chart
+                                            <span class="badge bg-danger rounded-pill">Missing</span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            Employee List
+                                            <span class="badge bg-success rounded-pill">Present</span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            Benefit Plans
+                                            <span class="badge bg-success rounded-pill">Present</span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            Benefit Agreements
+                                            <span class="badge bg-warning rounded-pill">Partially complete</span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            Employment Contracts
+                                            <span class="badge bg-success rounded-pill">Present</span>
+                                        </li>
+                                    </ul>
+                                    <button class="btn btn-sm btn-outline-secondary">View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <h6><i class="fas fa-exclamation-triangle text-warning me-2"></i>Classification Issues</h6>
+                                    <ul class="list-group mb-3">
+                                        <li class="list-group-item">
+                                            <i class="fas fa-file-pdf text-danger file-icon"></i>
+                                            <div>
+                                                <strong>Company_Loan_Agreement_2019.pdf</strong>
+                                                <p class="mb-0 text-muted">Misclassified: Should be in "Debt Instruments"</p>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <i class="fas fa-file-word text-primary file-icon"></i>
+                                            <div>
+                                                <strong>Corporate_Bond_Issuance_2020.docx</strong>
+                                                <p class="mb-0 text-muted">Misclassified: Should be in "Debt Instruments"</p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <button class="btn btn-sm btn-outline-secondary">View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <h6><i class="fas fa-globe text-info me-2"></i>Foreign Law/Court Detection</h6>
+                                    <div class="alert alert-info">
+                                        Dutch law detected in lease agreement (Mechelsesteenweg200LEASE_final_signed.pdf)
+                                    </div>
+                                    <div class="alert alert-info">
+                                        German court jurisdiction clause found in distribution agreement (DistributionAgreement_DE_2021.pdf)
+                                    </div>
+                                    <button class="btn btn-sm btn-outline-secondary">View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <h6><i class="fas fa-balance-scale text-primary me-2"></i>Change of Control Clauses</h6>
+                                    <div class="alert alert-warning">
+                                        Change of control clause detected in Software Sales Agreement
+                                    </div>
+                                    <div class="alert alert-warning">
+                                        Change of control provision found in Credit Facility Agreement
+                                    </div>
+                                    <button class="btn btn-sm btn-outline-secondary">View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <h6><i class="fas fa-calendar-alt text-success me-2"></i>Key Dates Analysis</h6>
+                                    <ul class="list-group mb-3">
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            Lease Expiration (Office HQ)
+                                            <span class="badge bg-warning rounded-pill">2023-12-31</span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            Software License Renewal
+                                            <span class="badge bg-danger rounded-pill">2022-06-30</span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            Patent Expiration (Core Tech)
+                                            <span class="badge bg-success rounded-pill">2030-05-15</span>
+                                        </li>
+                                    </ul>
+                                    <button class="btn btn-sm btn-outline-secondary">View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <h6><i class="fas fa-file-signature text-danger me-2"></i>Signature Verification</h6>
+                                    <ul class="list-group mb-3">
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            Employment Agreement (CEO)
+                                            <span class="badge bg-success rounded-pill">Verified</span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            Vendor Contract #12345<span class="badge bg-danger rounded-pill">Missing</span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            Board Resolution 2022-03
+                                            <span class="badge bg-warning rounded-pill">Partial</span>
+                                        </li>
+                                    </ul>
+                                    <button class="btn btn-sm btn-outline-secondary">View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <h6><i class="fas fa-exclamation-circle text-danger me-2"></i>Material Contracts Analysis</h6>
+                                    <ul class="list-group mb-3">
+                                        <li class="list-group-item">
+                                            <strong>Supply Agreement with XYZ Corp</strong>
+                                            <p class="mb-0 text-muted">Exclusive supply clause may limit business flexibility</p>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <strong>Joint Venture Agreement</strong>
+                                            <p class="mb-0 text-muted">Exit clause requires 12-month notice period</p>
+                                        </li>
+                                    </ul>
+                                    <button class="btn btn-sm btn-outline-secondary">View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <h6><i class="fas fa-shield-alt text-primary me-2"></i>Intellectual Property Review</h6>
+                                    <ul class="list-group mb-3">
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            Registered Patents
+                                            <span class="badge bg-success rounded-pill">12</span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            Pending Patent Applications
+                                            <span class="badge bg-warning rounded-pill">3</span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            Trademarks
+                                            <span class="badge bg-success rounded-pill">8</span>
+                                        </li>
+                                    </ul>
+                                    <button class="btn btn-sm btn-outline-secondary">View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <h6><i class="fas fa-gavel text-warning me-2"></i>Litigation Summary</h6>
+                                    <ul class="list-group mb-3">
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            Active Lawsuits
+                                            <span class="badge bg-danger rounded-pill">2</span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            Settled Cases (Last 5 Years)
+                                            <span class="badge bg-warning rounded-pill">5</span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            Potential Legal Risks Identified
+                                            <span class="badge bg-info rounded-pill">3</span>
+                                        </li>
+                                    </ul>
+                                    <button class="btn btn-sm btn-outline-secondary">View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <h6><i class="fas fa-chart-pie text-success me-2"></i>Document Analysis Summary</h6>
+                                    <canvas id="documentChart" width="400" height="200"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                $('#results').html(analysisResults).show();
+
+                // Create a simple chart
+                let ctx = document.getElementById('documentChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Compliant', 'Non-compliant', 'Requires Review'],
+                        datasets: [{
+                            data: [70, 15, 15],
+                            backgroundColor: ['#2ecc71', '#e74c3c', '#f39c12']
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                            },
+                            title: {
+                                display: true,
+                                text: 'Document Compliance Overview'
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
