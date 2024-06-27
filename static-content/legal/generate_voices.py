@@ -52,7 +52,7 @@ def text_to_speech_batch(text_list, api_key, voice_id, output_prefix=""):
     return file_lengths
 
 # Example usage
-api_key = "sk_5020661f7e28359d2bf677c02e031095b09d22cc4a380ea3"
+api_key = ""
 voice_id_english = "N9pRiILmOUmfE5t0Xv9D"
 voice_id_flemish = "s7Z6uboUuE4Nd8Q2nye6"
 
