@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="description" content="Client intake process for Advocaten law firm"/>
+<meta name="keywords" content="advocaten, law firm, client intake, legal services"/>
+<meta name="author" content="Advocaten Law Firm"/>
+<meta name="robots" content="index, follow"/>
+<meta property="og:title" content="Advocaten Client Intake"/>
+<meta property="og:description" content="Complete your client intake process for Advocaten law firm"/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://www.advocaten-lawfirm.com/intake"/>
+<meta property="og:image" content="https://www.advocaten-lawfirm.com/images/logo.png"/>
+<title>Truyens Advocaten Client Onboarding</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<style>
+        body {
+            font-family: "neue-haas-grotesk-display", sans-serif;
+            background-color: #f4f4f4;
+            color: #4c717b;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .step {
+            display: none;
+        }
+        .step.active {
+            display: block;
+        }
+        .btn-primary {
+            background-color: #003b4a;
+            border-color: #003b4a;
+        }
+        .btn-primary:hover {
+            background-color: #002934;
+            border-color: #002934;
+        }
+        #languageSelector {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: auto;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            background-color: #003b4a;
+            color: #ffffff;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        #languageSelector:hover {
+            background-color: #002934;
+        }
+        #languageSelector:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(0, 59, 74, 0.5);
+        }
+        .form-control:focus {
+            border-color: #003b4a;
+            box-shadow: 0 0 0 0.2rem rgba(0, 59, 74, 0.25);
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #545b62;
+            <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta name="description" content="Client intake process for Advocaten law firm"/>
+    <meta name="keywords" content="advocaten, law firm, client intake, legal services"/>
+    <meta name="author" content="Advocaten Law Firm"/>
+    <meta name="robots" content="index, follow"/>
+    <meta property="og:title" content="Advocaten Client Intake"/>
+    <meta property="og:description" content="Complete your client intake process for Advocaten law firm"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://www.advocaten-lawfirm.com/intake"/>
+    <meta property="og:image" content="https://www.advocaten-lawfirm.com/images/logo.png"/>
+    <title>Truyens Advocaten Client Onboarding</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <style>
+        body {
+            font-family: "neue-haas-grotesk-display", sans-serif;
+            background-color: #f4f4f4;
+            color: #4c717b;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .step {
+            display: none;
+        }
+        .step.active {
+            display: block;
+        }
+        .btn-primary {
+            background-color: #003b4a;
+            border-color: #003b4a;
+        }
+        .btn-primary:hover {
+            background-color: #002934;
+            border-color: #002934;
+        }
+        #languageSelector {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: auto;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            background-color: #003b4a;
+            color: #ffffff;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        #languageSelector:hover {
+            background-color: #002934;
+        }
+        #languageSelector:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(0, 59, 74, 0.5);
+        }
+        .form-control:focus {
+            border-color: #003b4a;
+            box-shadow: 0 0 0 0.2rem rgba(0, 59, 74, 0.25);
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #545b62;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <select id="languageSelector" onchange="changeLanguage(this.value)">
+            <option value="en">English</option>
+            <option value="fr">Français</option>
+            <option value="nl">Nederlands</option>
+        </select>
+        <h1 class="mb-4" data-lang-key="title">Truyens Advocaten Client Onboarding</h1>
+        <div class="progress mb-4" id="progress-bar">
+            <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="0" class="progress-bar" role="progressbar" style="width: 0%;">0%</div>
+        </div>
+        <div class="step active" id="step1">
+            <h2 data-lang-key="step1_title">Step 1: Client Type</h2>
+            <p data-lang-key="step1_instruction">Please select whether you are a natural person or a legal entity.</p>
+            <div class="form-check">
+                <input checked="" class="form-check-input" id="naturalPerson" name="clientType" type="radio" value="natural"/>
+                <label class="form-check-label" data-lang-key="natural_person" for="naturalPerson">Natural Person</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" id="legalEntity" name="clientType" type="radio" value="legal"/>
+                <label class="form-check-label" data-lang-key="legal_entity" for="legalEntity">Legal Entity</label>
+            </div>
+            <button class="btn btn-primary mt-3" data-lang-key="next" onclick="nextStep()">Next</button>
+        </div>
+        <div class="step" id="step2">
+            <h2 data-lang-key="step2_title">Step 2: Personal Information</h2>
+            <p data-lang-key="step2_instruction">Please provide your personal information. If you are a legal entity, additional company information will be required.</p>
+            <div class="mb-3">
+                <label class="form-label" data-lang-key="full_name" for="name">Full Name</label>
+                <input class="form-control" id="name" required="" type="text"/>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" data-lang-key="email_address" for="email">Email address</label>
+                <input class="form-control" id="email" required="" type="email"/>
+            </div>
+            <div id="companyInfo" style="display: none;">
+                <div class="mb-3">
+                    <label class="form-label" data-lang-key="company_name" for="companyName">Company Name</label>
+                    <input class="form-control" id="companyName" type="text"/>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" data-lang-key="annual_accounts" for="annualAccounts">Annual Accounts</label>
+                    <input class="form-control" id="annualAccounts" type="file"/>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" data-lang-key="ubo_register" for="uboRegister">UBO Register</label>
+                    <input class="form-control" id="uboRegister" type="file"/>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" data-lang-key="other_documents" for="otherDocuments">Other Applicable Documents</label>
+                    <input class="form-control" id="otherDocuments" multiple="" type="file"/>
+                </div>
+            </div>
+            <button class="btn btn-primary" data-lang-key="next" onclick="nextStep()">Next</button>
+        </div>
+        <div class="step" id="step3">
+            <h2 data-lang-key="step3_title">Step 3: Identity Verification</h2>
+            <p data-lang-key="step3_instruction">To verify your identity, we need a clear photo of your official ID document. This can be a passport, driver's license, or national ID card.</p>
+            <p data-lang-key="upload_id">Please upload a photo of your ID document:</p>
+            <div class="mb-3">
+                <input accept="image/*" class="form-control" id="idDocument" type="file" required/>
+            </div>
+            <button class="btn btn-primary" data-lang-key="next" onclick="nextStep()">Next</button>
+        </div>
+        <div class="step" id="step4">
+            <h2 data-lang-key="step4_title">Step 4: GDPR Consent</h2>
+            <p data-lang-key="step4_instruction">We are committed to protecting your personal data. Please read our privacy policy and provide your consent for data processing.</p>
+            <div class="form-check">
+                <input class="form-check-input" id="gdprConsent" required="" type="checkbox"/>
+                <label class="form-check-label" data-lang-key="gdpr_consent" for="gdprConsent">I consent to the processing of my personal data as described in the privacy policy.</label>
+            </div>
+            <button class="btn btn-primary mt-3" data-lang-key="next" onclick="nextStep()">Next</button>
+        </div>
+        <div class="step" id="step5">
+            <h2 data-lang-key="step5_title">Step 5: Digital Signature</h2>
+            <p data-lang-key="step5_instruction">Please provide your digital signature in the box below. Use your mouse or touchpad to sign.</p>
+            <canvas height="200" id="signatureCanvas" style="border: 1px solid #000;" width="400"></canvas>
+            <div>
+                <button class="btn btn-secondary mt-2" data-lang-key="clear" onclick="clearSignature()">Clear</button>
+                <button class="btn btn-primary mt-2" data-lang-key="submit" onclick="nextStep()">Submit</button>
+            </div>
+        </div>
+        <div class="step" id="completion">
+            <h2 data-lang-key="completion_title">Intake Process Completed</h2>
+            <p data-lang-key="completion_message">Thank you for completing the client intake process. We will review your information and contact you shortly.</p>
+        </div>
+    </div>
+    <script>
+       let currentStep = 1;
+        const totalSteps = 5; 5;
+        let currentLanguage = 'en';
+
+        const translations = {
+            en: {
+                title: 'Truyens Advocaten Client Onboarding',
+                step1_title: 'Step 1: Client Type',
+                step1_instruction: 'Please select whether you are a natural person or a legal entity.',
+                natural_person: 'Natural Person',
+                legal_entity: 'Legal Entity',
+                next: 'Next',
+                step2_title: 'Step 2: Personal Information',
+                step2_instruction: 'Please provide your personal information. If you are a legal entity, additional company information will be required.',
+                full_name: 'Full Name',
+                email_address: 'Email address',
+                company_name: 'Company Name',
+                annual_accounts: 'Annual Accounts',
+                ubo_register: 'UBO Register',
+                other_documents: 'Other Applicable Documents',
+                step3_title: 'Step 3: Identity Verification',
+                step3_instruction: 'To verify your identity, we need a clear photo of your official ID document. This can be a passport, driver\'s license, or national ID card.',
+                upload_id: 'Please upload a photo of your ID document:',
+                step4_title: 'Step 4: GDPR Consent',
+                step4_instruction: 'We are committed to protecting your personal data. Please read our privacy policy and provide your consent for data processing.',
+                gdpr_consent: 'I consent to the processing of my personal data as described in the privacy policy.',
+                step5_title: 'Step 5: Digital Signature',
+                step5_instruction: 'Please provide your digital signature in the box below. Use your mouse or touchpad to sign.',
+                clear: 'Clear',
+                submit: 'Submit',
+                completion_title: 'Intake Process Completed',
+                completion_message: 'Thank you for completing the client intake process. We will review your information and contact you shortly.'
+            },
+            fr: {
+                title: 'Intégration des clients de Truyens Advocaten',
+                step1_title: 'Étape 1 : Type de client',
+                step1_instruction: 'Veuillez sélectionner si vous êtes une personne physique ou une entité juridique.',
+                natural_person: 'Personne physique',
+                legal_entity: 'Entité juridique',
+                next: 'Suivant',
+                step2_title: 'Étape 2 : Informations personnelles',
+                step2_instruction: 'Veuillez fournir vos informations personnelles. Si vous êtes une entité juridique, des informations supplémentaires sur l\'entreprise seront requises.',
+                full_name: 'Nom complet',
+                email_address: 'Adresse e-mail',
+                company_name: 'Nom de l\'entreprise',
+                annual_accounts: 'Comptes annuels',
+                ubo_register: 'Registre UBO',
+                other_documents: 'Autres documents applicables',
+                step3_title: 'Étape 3 : Vérification d\'identité',
+                step3_instruction: 'Pour vérifier votre identité, nous avons besoin d\'une photo claire de votre document d\'identité officiel. Il peut s\'agir d\'un passeport, d\'un permis de conduire ou d\'une carte d\'identité nationale.',
+                upload_id: 'Veuillez télécharger une photo de votre pièce d\'identité :',
+                step4_title: 'Étape 4 : Consentement RGPD',
+                step4_instruction: 'Nous nous engageons à protéger vos données personnelles. Veuillez lire notre politique de confidentialité et donner votre consentement pour le traitement des données.',
+                gdpr_consent: 'Je consens au traitement de mes données personnelles comme décrit dans la politique de confidentialité.',
+                step5_title: 'Étape 5 : Signature numérique',
+                step5_instruction: 'Veuillez fournir votre signature numérique dans la case ci-dessous. Utilisez votre souris ou votre pavé tactile pour signer.',
+                clear: 'Effacer',
+                submit: 'Soumettre',
+                completion_title: 'Processus d\'intégration terminé',
+                completion_message: 'Merci d\'avoir complété le processus d\'intégration du client. Nous examinerons vos informations et vous contacterons sous peu.'
+            },
+            nl: {
+                title: 'Truyens Advocaten Klant Onboarding',
+                step1_title: 'Stap 1: Klanttype',
+                step1_instruction: 'Selecteer of u een natuurlijk persoon of een rechtspersoon bent.',
+                natural_person: 'Natuurlijk persoon',
+                legal_entity: 'Rechtspersoon',
+                next: 'Volgende',
+                step2_title: 'Stap 2: Persoonlijke informatie',
+                step2_instruction: 'Gelieve uw persoonlijke gegevens in te vullen. Als u een rechtspersoon bent, zal aanvullende bedrijfsinformatie vereist zijn.',
+                full_name: 'Volledige naam',
+                email_address: 'E-mailadres',
+                company_name: 'Bedrijfsnaam',
+                annual_accounts: 'Jaarrekeningen',
+                ubo_register: 'UBO-register',
+                other_documents: 'Andere toepasselijke documenten',
+                step3_title: 'Stap 3: Identiteitsverificatie',
+                step3_instruction: 'Om uw identiteit te verifiëren, hebben we een duidelijke foto van uw officiële identiteitsbewijs nodig. Dit kan een paspoort, rijbewijs of nationale identiteitskaart zijn.',
+                upload_id: 'Upload een foto van uw identiteitsbewijs:',
+                step4_title: 'Stap 4: AVG-toestemming',
+                step4_instruction: 'We zetten ons in voor de bescherming van uw persoonsgegevens. Lees ons privacybeleid en geef uw toestemming voor gegevensverwerking.',
+                gdpr_consent: 'Ik stem in met de verwerking van mijn persoonsgegevens zoals beschreven in het privacybeleid.',
+                step5_title: 'Stap 5: Digitale handtekening',
+                step5_instruction: 'Plaats uw digitale handtekening in het onderstaande vak. Gebruik uw muis of touchpad om te ondertekenen.',
+                clear: 'Wissen',
+                submit: 'Indienen',
+                completion_title: 'Intakeproces voltooid',
+                completion_message: 'Bedankt voor het voltooien van het klantintakeproces. We zullen uw gegevens beoordelen en spoedig contact met u opnemen.'
+            }
+        };
+
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            document.querySelectorAll('[data-lang-key]').forEach(elem => {
+                const key = elem.getAttribute('data-lang-key');
+                elem.textContent = translations[lang][key];
+            });
+            updateLanguageSelector(lang);
+        }
+
+        function nextStep() {
+            if (validateForm()) {
+                document.getElementById(`step${currentStep}`).classList.remove('active');
+                currentStep++;
+                if (currentStep > totalSteps) {
+                    document.getElementById('completion').classList.add('active');
+                } else {
+                    document.getElementById(`step${currentStep}`).classList.add('active');
+                }
+                updateProgressBar();
+                // Reset the form validation state
+                document.querySelectorAll('.is-invalid').forEach(field => {
+                    field.classList.remove('is-invalid');
+                });}
+        }
+
+        function updateProgressBar() {
+            const progress = (currentStep - 1) / totalSteps * 100;
+            const progressBar = document.querySelector('.progress-bar');
+            progressBar.style.width = `${progress}%`;
+            progressBar.setAttribute('aria-valuenow', progress);
+            progressBar.textContent = `${Math.round(progress)}%`;
+        }
+
+        document.querySelectorAll('input[name="clientType"]').forEach((radio) => {
+            radio.addEventListener('change', (event) => {
+                const companyInfo = document.getElementById('companyInfo');
+                if (event.target.value === 'legal') {
+                    companyInfo.style.display = 'block';
+                } else {
+                    companyInfo.style.display = 'none';
+                }
+            });
+        });
+
+        const canvas = document.getElementById('signatureCanvas');
+        const ctx = canvas.getContext('2d');
+        let isDrawing = false;
+        let lastX = 0;
+        let lastY = 0;
+
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mouseout', stopDrawing);
+
+        function startDrawing(e) {
+            isDrawing = true;
+            [lastX, lastY] = [e.offsetX, e.offsetY];
+        }
+
+        function draw(e) {
+            if (!isDrawing) return;
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(e.offsetX, e.offsetY);
+            ctx.stroke();
+            [lastX, lastY] = [e.offsetX, e.offsetY];
+        }
+
+        function stopDrawing() {
+            isDrawing = false;
+        }
+
+        function clearSignature() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function validateForm() {
+            let isValid = true;
+            const currentStepElement = document.getElementById(`step${currentStep}`);
+            const requiredFields = currentStepElement.querySelectorAll('input[required], select[required], textarea[required]');
+            requiredFields.forEach(field => {
+                if (!field.value) {
+                    isValid = false;
+                    field.classList.add('is-invalid');
+                } else {
+                    field.classList.remove('is-invalid');
+                }
+            });
+
+            // Special check for GDPR consent checkbox
+            if (currentStep === 4) {
+                const gdprConsent = document.getElementById('gdprConsent');
+                if (!gdprConsent.checked) {
+                    isValid = false;
+                    gdprConsent.classList.add('is-invalid');
+                } else {
+                    gdprConsent.classList.remove('is-invalid');
+                }
+            }
+
+            return isValid;}
+
+        function updateLanguageSelector(lang) {
+            document.getElementById('languageSelector').value = lang;
+        }
+
+        // Initialize language
+        changeLanguage('en');
+
+        // Add event listener to language selector
+        document.getElementById('languageSelector').addEventListener('change', function() {
+            changeLanguage(this.value);
+        });
+
+        // Add event listeners to next buttons
+        document.querySelectorAll('.btn-primary[data-lang-key="next"]').forEach(button => {
+            button.addEventListener('click', nextStep);
+        });
+
+        // Initialize progress bar
+        updateProgressBar();
+    </script>
+</body>
+</html>

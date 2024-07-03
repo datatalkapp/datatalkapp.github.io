@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CIAP - Lawyer Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .progress {
+            height: 25px;
+        }
+        .card {
+            height: 100%;
+        }
+        .table-responsive {
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Client Onboarding Dashboard</a>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Send Intake Form</h5>
+                        <form id="intakeForm">
+                            <div class="mb-3">
+                                <label for="firstName" class="form-label">First Name</label>
+                                <input type="text" class="form-control" id="firstName" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="lastName" class="form-label">Last Name</label>
+                                <input type="text" class="form-control" id="lastName" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Send Intake Form</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Clients</h5>
+                        <h2 class="card-text" id="totalClients">0</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Completed Intakes</h5>
+                        <h2 class="card-text" id="completedIntakes">0</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Pending Intakes</h5>
+                        <h2 class="card-text" id="pendingIntakes">0</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Compliance Rate</h5>
+                        <h2 class="card-text" id="complianceRate">0%</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Recent Client Activity</h5>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Client Name</th>
+                                        <th>Type</th>
+                                        <th>Progress</th>
+                                        <th>Status</th>
+                                        <th>Last Reminder</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="clientActivityTable">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Intake Progress</h5>
+                        <canvas id="intakeProgressChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Client Types</h5>
+                        <canvas id="clientTypesChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Search Clients</h5>
+                        <div class="mb-3">
+                            <input type="text" class="form-control" id="clientSearch" placeholder="Search clients...">
+                        </div>
+                        <div class="mb-3">
+                            <select class="form-select" id="clientTypeFilter">
+                                <option value="">All Types</option>
+                                <option value="Natural Person">Natural Person</option>
+                                <option value="Legal Entity">Legal Entity</option>
+                            </select>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Client Name</th>
+                                        <th>Type</th>
+                                        <th>Documents</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="allClientsTable">
+                                </tbody>
+                            </table>
+                        </div>
+                        <nav aria-label="Client table pagination">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Simulated data
+        const clients = [
+            { name: "John Doe", type: "Natural Person", progress: 100, status: "Completed", lastReminder: "2023-05-01" },
+            { name: "ABC Corp", type: "Legal Entity", progress: 75, status: "In Progress", lastReminder: "2023-05-05" },
+            { name: "Jane Smith", type: "Natural Person", progress: 50, status: "In Progress", lastReminder: "2023-04-25" },
+            { name: "XYZ Ltd", type: "Legal Entity", progress: 25, status: "Just Started", lastReminder: "2023-05-07" },
+            { name: "Bob Johnson", type: "Natural Person", progress: 0, status: "Not Started", lastReminder: null }
+        ];
+
+        const today = new Date();
+        const sevenDaysAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+
+        function formatDate(dateString) {
+            if (!dateString) return 'Never';
+            const date = new Date(dateString);
+            return date.toLocaleDateString();
+        }
+
+        function getDaysSinceReminder(dateString) {
+            if (!dateString) return Infinity;
+            const date = new Date(dateString);
+            const diffTime = Math.abs(today - date);
+            return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        }
+
+        // Update dashboard numbers
+        document.getElementById('totalClients').textContent = clients.length;
+        document.getElementById('completedIntakes').textContent = clients.filter(c => c.progress === 100).length;
+        document.getElementById('pendingIntakes').textContent = clients.filter(c => c.progress < 100).length;
+        document.getElementById('complianceRate').textContent = Math.round((clients.filter(c => c.progress === 100).length / clients.length) * 100) + '%';
+
+        // Populate client activity table
+        const clientActivityTable = document.getElementById('clientActivityTable');
+        clients.forEach(client => {
+            const row = clientActivityTable.insertRow();
+            row.insertCell(0).textContent = client.name;
+            row.insertCell(1).textContent = client.type;
+            const progressCell = row.insertCell(2);
+            progressCell.innerHTML = `
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: ${client.progress}%;" aria-valuenow="${client.progress}" aria-valuemin="0" aria-valuemax="100">${client.progress}%</div>
+                </div>
+            `;
+            row.insertCell(3).textContent = client.status;
+            
+            const lastReminderCell = row.insertCell(4);
+            const lastReminderDate = formatDate(client.lastReminder);
+            const daysSinceReminder = getDaysSinceReminder(client.lastReminder);
+            
+            if (daysSinceReminder > 7) {
+                lastReminderCell.innerHTML = `${lastReminderDate} <span class="text-warning">⚠️</span>`;
+            } else {
+                lastReminderCell.textContent = lastReminderDate;
+            }
+            
+            const actionCell = row.insertCell(5);
+            const reminderButton = document.createElement('button');
+            reminderButton.textContent = 'Send Reminder';
+            reminderButton.className = 'btn btn-sm btn-primary';
+            reminderButton.onclick = () => sendReminder(client.name);
+            actionCell.appendChild(reminderButton);
+        });
+
+        function sendReminder(clientName) {
+            // Implement the reminder sending logic here
+            console.log(`Sending reminder to ${clientName}`);
+            alert(`Reminder sent to ${clientName}`);
+        }
+
+        // Create charts
+        const intakeProgressCtx = document.getElementById('intakeProgressChart').getContext('2d');
+        new Chart(intakeProgressCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Completed', 'In Progress', 'Not Started'],
+                datasets: [{
+                    data: [
+                        clients.filter(c => c.progress === 100).length,
+                        clients.filter(c => c.progress > 0 && c.progress < 100).length,
+                        clients.filter(c => c.progress === 0).length
+                    ],
+                    backgroundColor: ['#28a745', '#ffc107', '#dc3545']
+                }]
+            }
+        });
+
+        const clientTypesCtx = document.getElementById('clientTypesChart').getContext('2d');
+        new Chart(clientTypesCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Natural Person', 'Legal Entity'],
+                datasets: [{
+                    data: [
+                        clients.filter(c => c.type === 'Natural Person').length,
+                        clients.filter(c => c.type === 'Legal Entity').length
+                    ],
+                    backgroundColor: ['#007bff', '#17a2b8']
+                }]
+            }
+        });
+
+        // Handle intake form submission
+        document.getElementById('intakeForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('email').value;
+            
+            // Here you would typically send this data to your server
+            console.log(`Sending intake form to ${firstName} ${lastName} at ${email}`);
+            alert(`Intake form sent to ${email}`);
+            
+            // Clear the form
+            this.reset();
+        });
+
+        // Populate all clients table with mock data
+const allClientsTable = document.getElementById('allClientsTable');
+const mockClients = [
+    { name: "John Doe", type: "Natural Person", documents: ["ID", "Proof of Address"] },
+    { name: "ABC Corp", type: "Legal Entity", documents: ["Registration", "Tax Certificate", "Financial Statements"] },
+    { name: "Jane Smith", type: "Natural Person", documents: ["ID", "Proof of Income"] },
+    { name: "XYZ Ltd", type: "Legal Entity", documents: ["Registration", "Shareholder Certificate"] },
+    { name: "Bob Johnson", type: "Natural Person", documents: ["ID"] }
+];
+
+function populateAllClientsTable(clients) {
+    allClientsTable.innerHTML = '';
+    clients.forEach(client => {
+        const row = allClientsTable.insertRow();
+        row.insertCell(0).textContent = client.name;
+        row.insertCell(1).textContent = client.type;
+        const documentsCell = row.insertCell(2);
+        client.documents.forEach(doc => {
+            const docIcon = document.createElement('i');
+            docIcon.className = 'bi bi-file-earmark-text me-2';
+            docIcon.title = doc;
+            documentsCell.appendChild(docIcon);
+        });
+        const pdfIcon = document.createElement('i');
+        pdfIcon.className = 'bi bi-file-earmark-pdf text-danger';
+        pdfIcon.title = 'Download PDF';
+        documentsCell.appendChild(pdfIcon);
+    });
+}
+
+populateAllClientsTable(mockClients);
+
+// Search functionality
+document.getElementById('clientSearch').addEventListener('input', function() {
+    const searchTerm = this.value.toLowerCase();
+    const filteredClients = mockClients.filter(client =>
+        client.name.toLowerCase().includes(searchTerm) ||
+        client.type.toLowerCase().includes(searchTerm)
+    );
+    populateAllClientsTable(filteredClients);
+});
+
+// Filter functionality
+document.getElementById('clientTypeFilter').addEventListener('change', function() {
+    const filterValue = this.value;
+    const filteredClients = filterValue
+        ? mockClients.filter(client => client.type === filterValue)
+        : mockClients;
+    populateAllClientsTable(filteredClients);
+});</script>
+</body>
+</html>
