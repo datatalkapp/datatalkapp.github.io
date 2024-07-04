@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datatalk Legal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            padding-top: 20px;
+        }
+        .card {
+            box-shadow: 0 4px 6px rgba(0,0,0,.1);
+            border: none;
+            border-radius: 10px;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+        #query, #followup-query {
+            border-radius: 20px;
+        }
+        .source-item {
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .source-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,.1);
+        }
+        .suggested-question {
+            cursor: pointer;
+        }
+        .search-container {
+            position: relative;
+        }
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .database-stats {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+        .user-query {
+            background-color: #e9ecef;
+            border-left: 4px solid #007bff;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+        .ai-response {
+            background-color: #f8f9fa;
+            border-left: 4px solid #28a745;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+        .highlight {
+            background-color: yellow;
+        }
+        .source-link {
+            color: #007bff;
+            text-decoration: none;
+            cursor: help;
+        }
+        .source-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Search Interface -->
+        <div id="search-interface">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">DataTalk Legal</h2>
+                    <form id="query-form">
+                        <div class="mb-3 search-container">
+                            <input type="text" class="form-control form-control-lg" id="query" placeholder="Voer trefwoorden in om relevante arbeidsrechtdocumenten te zoeken..." required>
+                            <button type="submit" class="btn btn-primary search-icon">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </div>
+                    </form>
+                    <div class="database-stats text-center mt-3">
+                        <p>Doorzoekt: 500K CAO's, 300K rechtszaken, 200K juridische adviezen, 100K wetteksten, 50K Europese richtlijnen</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" style="display: none;">
+            <h2 id="search-query" class="mb-4"></h2>
+            
+            <div class="mb-3">
+                <div class="btn-group" role="group" aria-label="Bronfilters">
+                    <button type="button" class="btn btn-outline-secondary">Alles</button>
+                    <button type="button" class="btn btn-outline-secondary">CAO's</button>
+                    <button type="button" class="btn btn-outline-secondary">Rechtspraak</button>
+                    <button type="button" class="btn btn-outline-secondary">Wetteksten</button>
+                    <button type="button" class="btn btn-outline-secondary">Adviezen</button>
+                </div>
+            </div>
+            <div id="sources-list" class="row mb-4"></div>
+            <div class="text-center mb-4">
+                <button id="more-sources" class="btn btn-outline-primary">Meer bronnen</button>
+            </div>
+            
+            <div class="card mb-4">
+                <div class="card-body">
+                    <form id="question-form">
+                        <div class="mb-3">
+                            <label for="user-question" class="form-label">Stel uw vraag op basis van de geselecteerde bronnen:</label>
+                            <input type="text" class="form-control" id="user-question" placeholder="Voer hier uw arbeidsrechtelijke vraag in..." required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-lightbulb me-2"></i>Genereer antwoord
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div id="conversation-container"></div>
+                    <button class="btn btn-outline-primary btn-sm" id="copy-answer"><i class="bi bi-clipboard me-2"></i>Kopieer antwoord</button>
+                </div>
+            </div>
+            
+            <div class="card mb-4">
+                <div class="card-body">
+                    <form id="followup-form" class="d-flex">
+                        <input type="text" class="form-control me-2" id="followup-query" placeholder="Stel een vervolgvraag..." required>
+                        <button type="submit" class="btn btn-primary"><i class="bi bi-send"></i></button>
+                    </form>
+                    <div class="mt-3" id="suggested-questions"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            let sources = [];
+
+            function nl2br(str) {
+                return str.replace(/\n/g, '<br>');
+            }
+
+            // Query Form Submission
+            $('#query-form').submit(function(e) {
+                e.preventDefault();
+                const query = $('#query').val();
+                simulateQueryProcessing(query);
+            });
+
+            // Simulate Query Processing
+            function simulateQueryProcessing(query) {
+                $('#search-interface').hide();
+                $('#results-screen').show();
+                $('#search-query').text(`Zoekresultaten voor: "${query}"`);
+                
+                // Simulated sources
+                sources = [
+                    { id: 1, title: "CAO Metaal- en technologische industrie 2023", type: "CAO", relevance: "95%", summary: "Recente CAO met bepalingen over arbeidsduur en overwerk", icon: "bi-file-earmark-text", filename: "CAO_Metaal_2023.pdf", excerpt: "De nieuwe CAO stelt dat <span class='highlight'>overwerk boven 38 uur per week</span> met 150% moet worden vergoed." },
+                    { id: 2, title: "Arrest Hof van Cassatie: Ontslagvergoeding", type: "Rechtspraak", relevance: "87%", summary: "Baanbrekende uitspraak over berekening ontslagvergoeding", icon: "bi-gavel", filename: "Cassatie_Ontslagvergoeding_2022.pdf", excerpt: "Het Hof oordeelde dat <span class='highlight'>variabele bonussen moeten worden meegenomen</span> in de berekening van de ontslagvergoeding." },
+                    { id: 3, title: "Wijzigingen Arbeidswet 2023", type: "Wettekst", relevance: "82%", summary: "Overzicht van recente wijzigingen in de Belgische arbeidswetgeving", icon: "bi-book", filename: "Arbeidswet_Wijzigingen_2023.pdf", excerpt: "De nieuwe wet introduceert het recht op <span class='highlight'>4 dagen werkweek</span> bij gelijkblijvend aantal werkuren." },
+                    { id: 4, title: "EU-richtlijn Werk-privébalans", type: "EU Richtlijn", relevance: "78%", summary: "Europese richtlijn ter bevordering van werk-privébalans", icon: "bi-flag", filename: "EU_Richtlijn_Werk_Prive_Balans.pdf", excerpt: "Lidstaten moeten zorgen voor <span class='highlight'>minimaal 10 dagen betaald vaderschapsverlof</span> bij de geboorte van een kind." },
+                    { id: 5, title: "Advies Nationale Arbeidsraad: Telewerk", type: "Advies", relevance: "75%", summary: "Aanbevelingen voor regelgeving rond structureel telewerk", icon: "bi-chat-text", filename: "NAR_Advies_Telewerk_2023.pdf", excerpt: "De NAR adviseert om <span class='highlight'>vergoedingen voor thuiswerk</span> wettelijk te verankeren en te standaardiseren." }
+                ];
+
+                $('#sources-list').empty();
+                sources.forEach(function(source, index) {
+                    setTimeout(() => {
+                        $('#sources-list').append(`
+                            <div class="col-md-6 mb-3">
+                                <div class="card source-item h-100">
+                                    <div class="card-body">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="${source.id}" id="source-${source.id}">
+                                            <label class="form-check-label" for="source-${source.id}">
+                                                <h5 class="card-title"><i class="bi ${source.icon} me-2"></i>${source.title}</h5>
+                                            </label>
+                                        </div>
+                                        <h6 class="card-subtitle mb-2 text-muted">Relevantie: ${source.relevance}</h6>
+                                        <span class="badge bg-primary mb-2">${source.type}</span>
+                                        <p class="card-text">${source.summary}</p>
+                                        <p class="card-text"><small>${source.excerpt}</small></p>
+                                        <small class="text-muted">Bestand: ${source.filename}</small><br>
+                                        <a href="#" class="card-link">Bekijk volledige bron</a>
+                                    </div>
+                                </div>
+                            </div>
+                        `);
+                        $('.source-item').last().animate({opacity: 1, transform: 'translateY(0)'}, 500);
+                    }, index * 200);
+                });
+            }
+
+            // Question Form Submission
+            $('#question-form').submit(function(e) {
+                e.preventDefault();
+                const question = $('#user-question').val();
+                const selectedSources = $('input[type=checkbox]:checked').map(function() {
+                    return parseInt(this.value);
+                }).get();
+                
+                if (selectedSources.length === 0) {
+                    alert("Selecteer a.u.b. ten minste één bron voordat u een antwoord genereert.");
+                    return;
+                }
+
+                simulateAnswerGeneration(question, selectedSources);
+            });
+
+            function simulateAnswerGeneration(question, selectedSourceIds) {
+                $('#conversation-container').empty().append(`
+                    <div class="user-query mb-3">
+                        <strong>Uw vraag:</strong> ${question}
+                    </div>
+                    <div class="ai-response" id="generated-answer"></div>
+                `);
+
+                const selectedSources = sources.filter(source => selectedSourceIds.includes(source.id));
+                const answer = generateAnswer(question, selectedSources);
+
+                $('#generated-answer').html(nl2br(answer));
+                $('[data-toggle="tooltip"]').tooltip();
+
+                // Add suggested follow-up questions
+                const suggestedQuestions = [
+                    "Wat zijn de specifieke wettelijke vereisten voor mijn situatie?",
+                    "Hoe beïnvloedt recente rechtspraak deze interpretatie?",
+                    "Zijn er uitzonderingen op dit juridische principe?",
+                    "Welke documentatie moet ik voorbereiden?",
+                    "Hoe kan dit verschillen in verschillende sectoren?"
+                ];
+
+                $('#suggested-questions').empty();
+                suggestedQuestions.forEach(question => {
+                    $('#suggested-questions').append(`
+                        <button class="btn btn-outline-secondary btn-sm m-1 suggested-question">${question}</button>
+                    `);
+                });
+            }
+
+            function generateAnswer(question, selectedSources) {
+                const answer = `Op basis van de geselecteerde bronnen, hier is een uitgebreid antwoord op uw vraag:
+
+1. Wettelijk kader:
+   Het primaire wettelijke kader dat van toepassing is op deze situatie is de recente wijziging in de Arbeidswet, zoals beschreven in <a href="#" class="source-link" data-toggle="tooltip" title="Wijzigingen Arbeidswet 2023: Overzicht van recente wijzigingen in de Belgische arbeidswetgeving">[3]</a>. Deze wet introduceert het recht op een 4-daagse werkweek bij gelijkblijvend aantal werkuren.
+
+2. CAO-bepalingen:
+   De CAO voor de Metaal- en technologische industrie 2023 <a href="#" class="source-link" data-toggle="tooltip" title="CAO Metaal- en technologische industrie 2023: Recente CAO met bepalingen over arbeidsduur en overwerk">[1]</a> stelt dat overwerk boven 38 uur per week met 150% moet worden vergoed. Dit is een belangrijke overweging bij het implementeren van flexibele werkschema's.
+
+3. Europese context:
+  De EU-richtlijn over werk-privébalans <a href="#" class="source-link" data-toggle="tooltip" title="EU-richtlijn Werk-privébalans: Europese richtlijn ter bevordering van werk-privébalans">[4]</a> vereist dat lidstaten zorgen voor minimaal 10 dagen betaald vaderschapsverlof. Dit kan gevolgen hebben voor uw personeelsbeleid en verlofregeling.
+
+4. Recente rechtspraak:
+   Een recent arrest van het Hof van Cassatie <a href="#" class="source-link" data-toggle="tooltip" title="Arrest Hof van Cassatie: Ontslagvergoeding: Baanbrekende uitspraak over berekening ontslagvergoeding">[2]</a> heeft bepaald dat variabele bonussen moeten worden meegenomen in de berekening van de ontslagvergoeding. Dit is belangrijk om in gedachten te houden bij het opstellen van arbeidsovereenkomsten en bij eventuele ontslagprocedures.
+
+5. Telewerk overwegingen:
+   Het advies van de Nationale Arbeidsraad <a href="#" class="source-link" data-toggle="tooltip" title="Advies Nationale Arbeidsraad: Telewerk: Aanbevelingen voor regelgeving rond structureel telewerk">[5]</a> beveelt aan om vergoedingen voor thuiswerk wettelijk te verankeren. Dit kan relevant zijn als uw bedrijf structureel telewerk aanbiedt of overweegt.
+
+Gezien deze informatie, zijn dit de aanbevelingen:
+1. Herzie uw huidige arbeidsreglement om te zorgen dat het in lijn is met de nieuwe Arbeidswet, vooral wat betreft de mogelijkheid van een 4-daagse werkweek.
+2. Controleer of uw overwerkregelingen voldoen aan de CAO-bepalingen, met name de 150% vergoeding boven 38 uur.
+3. Zorg dat uw verlofbeleid voldoet aan de Europese richtlijnen, inclusief het vaderschapsverlof.
+4. Pas uw beloningsstructuur en ontslagprocedures aan om rekening te houden met de recente uitspraak over variabele bonussen in ontslagvergoedingen.
+5. Overweeg het implementeren van een formeel telewerkbeleid, inclusief vergoedingen, in lijn met de aanbevelingen van de NAR.
+
+Houd er rekening mee dat hoewel deze informatie een algemeen overzicht biedt, het cruciaal is om een gespecialiseerde arbeidsrechtadvocaat te raadplegen voor advies op maat voor uw specifieke situatie.`;
+
+                return answer;
+            }
+
+            // Follow-up Form Submission
+            $('#followup-form').submit(function(e) {
+                e.preventDefault();
+                const followupQuery = $('#followup-query').val();
+
+                $('#conversation-container').append(`
+                    <div class="user-query mb-3">
+                        <strong>Uw vraag:</strong> ${followupQuery}
+                    </div>
+                    <div class="ai-response" id="followup-answer-${Date.now()}"></div>
+                `);
+                simulateFollowupAnswer(followupQuery);
+            });
+
+            // Simulate Follow-up Answer
+            function simulateFollowupAnswer(query) {
+                const answer = `Hier is een gedetailleerd antwoord op uw vervolgvraag:
+
+1. Specifieke toepassing:
+   Uw vraag raakt aan een genuanceerd aspect van het arbeidsrecht. Gebaseerd op <a href="#" class="source-link" data-toggle="tooltip" title="CAO Metaal- en technologische industrie 2023: Recente bepalingen over arbeidsduur">[1]</a>, kunnen we afleiden dat ${query.toLowerCase().includes('vereiste') ? 'de vereisten zijn' : 'de situatie als volgt is'}:
+   
+   • Punt 1 dat ingaat op de specifieke vervolgvraag
+   • Punt 2 dat extra context of verduidelijking biedt
+   • Punt 3 met eventuele voorbehouden of uitzonderingen
+
+2. Recente ontwikkelingen:
+   Het is belangrijk op te merken dat recente wijzigingen in de Arbeidswet <a href="#" class="source-link" data-toggle="tooltip" title="Wijzigingen Arbeidswet 2023: Recente updates">[3]</a> nieuwe overwegingen hebben geïntroduceerd. Specifiek:
+   
+   • Update 1 relevant voor de vraag
+   • Update 2 met mogelijke implicaties
+
+3. Praktische implicaties:
+   Gezien deze factoren kunnen de praktische implicaties voor uw situatie het volgende omvatten:
+   
+   • Implicatie 1
+   • Implicatie 2
+   • Implicatie 3
+
+Het is cruciaal om te onthouden dat hoewel deze informatie een algemene richtlijn biedt, de specifieke details van uw situatie een meer op maat gemaakte aanpak kunnen vereisen. Voor definitief juridisch advies wordt aanbevolen een arbeidsrechtspecialist te raadplegen.`;
+
+                const answerId = `followup-answer-${Date.now()}`;
+                $(`#${answerId}`).html(nl2br(answer));
+                $('[data-toggle="tooltip"]').tooltip();
+            }
+
+            // Suggested Question Click
+            $(document).on('click', '.suggested-question', function() {
+                const question = $(this).text();
+                $('#followup-query').val(question);
+                $('#followup-form').submit();
+            });
+
+            // Copy Answer Button
+            $('#copy-answer').click(function() {
+                const answerText = $('#conversation-container').text();
+                navigator.clipboard.writeText(answerText).then(function() {
+                    alert('Conversatie gekopieerd naar klembord!');
+                }, function(err) {
+                    console.error('Kon tekst niet kopiëren: ', err);
+                });
+            });
+
+            // More Sources Button
+            $('#more-sources').click(function() {
+                // Simulate loading more sources
+                alert('Meer bronnen laden... (Dit is een placeholder voor de werkelijke functionaliteit)');
+            });
+
+            // Initialize tooltips
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+            })
+        });
+    </script>
+</body>
+</html>
