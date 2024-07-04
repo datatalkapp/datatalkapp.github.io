@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Datatalk - Legal Research Assistant</title>
+    <title>Datatalk - Juridische Onderzoeksassistent</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -86,17 +86,17 @@
         <div id="search-interface">
             <div class="card mb-4">
                 <div class="card-body">
-                    <h2 class="card-title text-center mb-4">Legal Research Assistant</h2>
+                    <h2 class="card-title text-center mb-4">Juridische Onderzoeksassistent</h2>
                     <form id="query-form">
                         <div class="mb-3 search-container">
-                            <input type="text" class="form-control form-control-lg" id="query" placeholder="Voer trefwoorden in om relevante arbeidsrechtdocumenten te zoeken..." required>
+                            <input type="text" class="form-control form-control-lg" id="query" placeholder="Voer trefwoorden in om relevante vonnissen en juridische documenten te zoeken..." required>
                             <button type="submit" class="btn btn-primary search-icon">
                                 <i class="bi bi-search"></i>
                             </button>
                         </div>
                     </form>
                     <div class="database-stats text-center mt-3">
-                        <p>Doorzoekt: 500K CAO's, 300K rechtszaken, 200K juridische adviezen, 100K wetteksten, 50K Europese richtlijnen</p>
+                        <p>Doorzoekt: 500K vonnissen, 300K juridische adviezen, 200K conclusies, 100K wetteksten, 50K Europese richtlijnen</p>
                     </div>
                 </div>
             </div>
@@ -109,8 +109,8 @@
             <div class="mb-3">
                 <div class="btn-group" role="group" aria-label="Bronfilters">
                     <button type="button" class="btn btn-outline-secondary">Alles</button>
-                    <button type="button" class="btn btn-outline-secondary">CAO's</button>
-                    <button type="button" class="btn btn-outline-secondary">Rechtspraak</button>
+                    <button type="button" class="btn btn-outline-secondary">Vonnissen</button>
+                    <button type="button" class="btn btn-outline-secondary">Conclusies</button>
                     <button type="button" class="btn btn-outline-secondary">Wetteksten</button>
                     <button type="button" class="btn btn-outline-secondary">Adviezen</button>
                 </div>
@@ -125,7 +125,7 @@
                     <form id="question-form">
                         <div class="mb-3">
                             <label for="user-question" class="form-label">Stel uw vraag op basis van de geselecteerde bronnen:</label>
-                            <input type="text" class="form-control" id="user-question" placeholder="Voer hier uw arbeidsrechtelijke vraag in..." required>
+                            <input type="text" class="form-control" id="user-question" placeholder="Voer hier uw juridische vraag in..." required>
                         </div>
                         <button type="submit" class="btn btn-primary">
                             <i class="bi bi-lightbulb me-2"></i>Genereer antwoord
@@ -176,11 +176,11 @@
                 
                 // Simulated sources
                 sources = [
-                    { id: 1, title: "CAO Metaal- en technologische industrie 2023", type: "CAO", relevance: "95%", summary: "Recente CAO met bepalingen over arbeidsduur en overwerk", icon: "bi-file-earmark-text", filename: "CAO_Metaal_2023.pdf", excerpt: "De nieuwe CAO stelt dat <span class='highlight'>overwerk boven 38 uur per week</span> met 150% moet worden vergoed." },
-                    { id: 2, title: "Arrest Hof van Cassatie: Ontslagvergoeding", type: "Rechtspraak", relevance: "87%", summary: "Baanbrekende uitspraak over berekening ontslagvergoeding", icon: "bi-gavel", filename: "Cassatie_Ontslagvergoeding_2022.pdf", excerpt: "Het Hof oordeelde dat <span class='highlight'>variabele bonussen moeten worden meegenomen</span> in de berekening van de ontslagvergoeding." },
-                    { id: 3, title: "Wijzigingen Arbeidswet 2023", type: "Wettekst", relevance: "82%", summary: "Overzicht van recente wijzigingen in de Belgische arbeidswetgeving", icon: "bi-book", filename: "Arbeidswet_Wijzigingen_2023.pdf", excerpt: "De nieuwe wet introduceert het recht op <span class='highlight'>4 dagen werkweek</span> bij gelijkblijvend aantal werkuren." },
-                    { id: 4, title: "EU-richtlijn Werk-privébalans", type: "EU Richtlijn", relevance: "78%", summary: "Europese richtlijn ter bevordering van werk-privébalans", icon: "bi-flag", filename: "EU_Richtlijn_Werk_Prive_Balans.pdf", excerpt: "Lidstaten moeten zorgen voor <span class='highlight'>minimaal 10 dagen betaald vaderschapsverlof</span> bij de geboorte van een kind." },
-                    { id: 5, title: "Advies Nationale Arbeidsraad: Telewerk", type: "Advies", relevance: "75%", summary: "Aanbevelingen voor regelgeving rond structureel telewerk", icon: "bi-chat-text", filename: "NAR_Advies_Telewerk_2023.pdf", excerpt: "De NAR adviseert om <span class='highlight'>vergoedingen voor thuiswerk</span> wettelijk te verankeren en te standaardiseren." }
+                    { id: 1, title: "Vonnis Rechtbank van Antwerpen: Buitencontractuele aansprakelijkheid", type: "Vonnis", relevance: "95%", summary: "Uitspraak over schadevergoeding bij contractbreuk", icon: "bi-gavel", filename: "Vonnis_Antwerpen_2023_06_27.pdf", excerpt: "De rechtbank oordeelde dat <span class='highlight'>de eiser recht heeft op schadevergoeding</span> wegens het niet naleven van de contractuele verplichtingen." },
+                    { id: 2, title: "Conclusie inzake maritiem geschil", type: "Conclusie", relevance: "87%", summary: "Argumentatie over aansprakelijkheid bij containervervoer", icon: "bi-file-earmark-text", filename: "Conclusie_Maritiem_2023_05_15.pdf", excerpt: "In deze conclusie wordt beargumenteerd dat <span class='highlight'>de rederij niet aansprakelijk kan worden gesteld</span> voor de schade aan de lading." },
+                    { id: 3, title: "Advies Hof van Cassatie: Berekening ontslagvergoeding", type: "Advies", relevance: "82%", summary: "Richtlijnen voor het berekenen van ontslagvergoedingen", icon: "bi-chat-text", filename: "Advies_Cassatie_Ontslagvergoeding_2022.pdf", excerpt: "Het Hof adviseert dat <span class='highlight'>variabele bonussen moeten worden meegenomen</span> in de berekening van de ontslagvergoeding." },
+                    { id: 4, title: "EU-richtlijn Maritiem Transport", type: "EU Richtlijn", relevance: "78%", summary: "Europese richtlijn over aansprakelijkheid in maritiem transport", icon: "bi-flag", filename: "EU_Richtlijn_Maritiem_Transport_2023.pdf", excerpt: "De richtlijn stelt dat <span class='highlight'>vervoerders aansprakelijk zijn voor verlies of schade</span> aan goederen tijdens het transport, tenzij anders overeengekomen." },
+                    { id: 5, title: "Vonnis Ondernemingsrechtbank: Schadegeval containers", type: "Vonnis", relevance: "75%", summary: "Uitspraak over aansprakelijkheid bij schade aan containers", icon: "bi-gavel", filename: "Vonnis_Ondernemingsrechtbank_2023_04_10.pdf", excerpt: "De rechtbank oordeelde dat <span class='highlight'>de terminal operator aansprakelijk is</span> voor de schade aan de containers tijdens de overslag." }
                 ];
 
                 $('#sources-list').empty();
@@ -246,8 +246,8 @@
                     "Wat zijn de specifieke wettelijke vereisten voor mijn situatie?",
                     "Hoe beïnvloedt recente rechtspraak deze interpretatie?",
                     "Zijn er uitzonderingen op dit juridische principe?",
-                    "Welke documentatie moet ik voorbereiden?",
-                    "Hoe kan dit verschillen in verschillende sectoren?"
+                    "Welke documentatie moet ik voorbereiden voor een soortgelijke zaak?",
+                    "Hoe verschilt deze uitspraak van eerdere vonnissen in vergelijkbare zaken?"
                 ];
 
                 $('#suggested-questions').empty();
@@ -261,29 +261,29 @@
             function generateAnswer(question, selectedSources) {
                 const answer = `Op basis van de geselecteerde bronnen, hier is een uitgebreid antwoord op uw vraag:
 
-1. Wettelijk kader:
-   Het primaire wettelijke kader dat van toepassing is op deze situatie is de recente wijziging in de Arbeidswet, zoals beschreven in <a href="#" class="source-link" data-toggle="tooltip" title="Wijzigingen Arbeidswet 2023: Overzicht van recente wijzigingen in de Belgische arbeidswetgeving">[3]</a>. Deze wet introduceert het recht op een 4-daagse werkweek bij gelijkblijvend aantal werkuren.
+1. Juridisch kader:
+   Het primaire juridische kader dat van toepassing is op deze situatie is te vinden in het vonnis van de Rechtbank van Antwerpen <a href="#" class="source-link" data-toggle="tooltip" title="Vonnis Rechtbank van Antwerpen: Buitencontractuele aansprakelijkheid">[1]</a>. Dit vonnis stelt dat de eiser recht heeft op schadevergoeding wegens het niet naleven van contractuele verplichtingen.
 
-2. CAO-bepalingen:
-   De CAO voor de Metaal- en technologische industrie 2023 <a href="#" class="source-link" data-toggle="tooltip" title="CAO Metaal- en technologische industrie 2023: Recente CAO met bepalingen over arbeidsduur en overwerk">[1]</a> stelt dat overwerk boven 38 uur per week met 150% moet worden vergoed. Dit is een belangrijke overweging bij het implementeren van flexibele werkschema's.
+2. Maritieme context:
+   In de conclusie inzake het maritieme geschil <a href="#" class="source-link" data-toggle="tooltip" title="Conclusie inzake maritiem geschil: Argumentatie over aansprakelijkheid bij containervervoer">[2]</a> wordt beargumenteerd dat de rederij niet aansprakelijk kan worden gesteld voor de schade aan de lading. Dit is een belangrijk precedent voor soortgelijke zaken.
 
-3. Europese context:
-  De EU-richtlijn over werk-privébalans <a href="#" class="source-link" data-toggle="tooltip" title="EU-richtlijn Werk-privébalans: Europese richtlijn ter bevordering van werk-privébalans">[4]</a> vereist dat lidstaten zorgen voor minimaal 10 dagen betaald vaderschapsverlof. Dit kan gevolgen hebben voor uw personeelsbeleid en verlofregeling.
+3. Europese regelgeving:
+   De EU-richtlijn Maritiem Transport <a href="#" class="source-link" data-toggle="tooltip" title="EU-richtlijn Maritiem Transport: Europese richtlijn over aansprakelijkheid in maritiem transport">[4]</a> stelt dat vervoerders aansprakelijk zijn voor verlies of schade aan goederen tijdens het transport, tenzij anders overeengekomen. Dit vormt een belangrijk kader voor de beoordeling van aansprakelijkheid in maritieme geschillen.
 
 4. Recente rechtspraak:
-   Een recent arrest van het Hof van Cassatie <a href="#" class="source-link" data-toggle="tooltip" title="Arrest Hof van Cassatie: Ontslagvergoeding: Baanbrekende uitspraak over berekening ontslagvergoeding">[2]</a> heeft bepaald dat variabele bonussen moeten worden meegenomen in de berekening van de ontslagvergoeding. Dit is belangrijk om in gedachten te houden bij het opstellen van arbeidsovereenkomsten en bij eventuele ontslagprocedures.
+   Het vonnis van de Ondernemingsrechtbank inzake het schadegeval met containers <a href="#" class="source-link" data-toggle="tooltip" title="Vonnis Ondernemingsrechtbank: Schadegeval containers">[5]</a> oordeelde dat de terminal operator aansprakelijk is voor de schade aan de containers tijdens de overslag. Dit kan relevant zijn voor vergelijkbare gevallen van schade tijdens goederenbehandeling.
 
-5. Telewerk overwegingen:
-   Het advies van de Nationale Arbeidsraad <a href="#" class="source-link" data-toggle="tooltip" title="Advies Nationale Arbeidsraad: Telewerk: Aanbevelingen voor regelgeving rond structureel telewerk">[5]</a> beveelt aan om vergoedingen voor thuiswerk wettelijk te verankeren. Dit kan relevant zijn als uw bedrijf structureel telewerk aanbiedt of overweegt.
+5. Bredere implicaties:
+   Het advies van het Hof van Cassatie over de berekening van ontslagvergoedingen <a href="#" class="source-link" data-toggle="tooltip" title="Advies Hof van Cassatie: Berekening ontslagvergoeding">[3]</a>, hoewel niet direct gerelateerd aan maritiem recht, illustreert hoe variabele factoren kunnen worden meegenomen in juridische berekeningen. Dit principe zou mogelijk kunnen worden toegepast op de berekening van schadevergoedingen in maritieme zaken.
 
 Gezien deze informatie, zijn dit de aanbevelingen:
-1. Herzie uw huidige arbeidsreglement om te zorgen dat het in lijn is met de nieuwe Arbeidswet, vooral wat betreft de mogelijkheid van een 4-daagse werkweek.
-2. Controleer of uw overwerkregelingen voldoen aan de CAO-bepalingen, met name de 150% vergoeding boven 38 uur.
-3. Zorg dat uw verlofbeleid voldoet aan de Europese richtlijnen, inclusief het vaderschapsverlof.
-4. Pas uw beloningsstructuur en ontslagprocedures aan om rekening te houden met de recente uitspraak over variabele bonussen in ontslagvergoedingen.
-5. Overweeg het implementeren van een formeel telewerkbeleid, inclusief vergoedingen, in lijn met de aanbevelingen van de NAR.
+1. Beoordeel zorgvuldig de contractuele verplichtingen van alle betrokken partijen in het licht van het vonnis van de Rechtbank van Antwerpen.
+2. Overweeg de argumenten gebruikt in de maritieme conclusie bij het opstellen van uw eigen argumentatie over aansprakelijkheid.
+3. Houd rekening met de EU-richtlijn bij het beoordelen van de aansprakelijkheid van de vervoerder.
+4. Gebruik het vonnis van de Ondernemingsrechtbank als precedent indien uw zaak betrekking heeft op schade tijdens overslag.
+5. Overweeg hoe variabele factoren, zoals in het advies van het Hof van Cassatie, kunnen worden toegepast op de berekening van eventuele schadevergoedingen.
 
-Houd er rekening mee dat hoewel deze informatie een algemeen overzicht biedt, het cruciaal is om een gespecialiseerde arbeidsrechtadvocaat te raadplegen voor advies op maat voor uw specifieke situatie.`;
+Het is belangrijk op te merken dat hoewel deze bronnen waardevolle inzichten bieden, elke zaak uniek is. Voor een definitief juridisch advies is het aan te raden een gespecialiseerde maritiem jurist te raadplegen die alle specifieke details van uw zaak kan beoordelen.`;
 
                 return answer;
             }
@@ -307,26 +307,26 @@ Houd er rekening mee dat hoewel deze informatie een algemeen overzicht biedt, he
                 const answer = `Hier is een gedetailleerd antwoord op uw vervolgvraag:
 
 1. Specifieke toepassing:
-   Uw vraag raakt aan een genuanceerd aspect van het arbeidsrecht. Gebaseerd op <a href="#" class="source-link" data-toggle="tooltip" title="CAO Metaal- en technologische industrie 2023: Recente bepalingen over arbeidsduur">[1]</a>, kunnen we afleiden dat ${query.toLowerCase().includes('vereiste') ? 'de vereisten zijn' : 'de situatie als volgt is'}:
+   Uw vraag raakt aan een genuanceerd aspect van het maritiem recht. Gebaseerd op <a href="#" class="source-link" data-toggle="tooltip" title="Vonnis Rechtbank van Antwerpen: Buitencontractuele aansprakelijkheid">[1]</a>, kunnen we afleiden dat ${query.toLowerCase().includes('vereiste') ? 'de vereisten zijn' : 'de situatie als volgt is'}:
    
-   • Punt 1 dat ingaat op de specifieke vervolgvraag
-   • Punt 2 dat extra context of verduidelijking biedt
-   • Punt 3 met eventuele voorbehouden of uitzonderingen
+   • De aansprakelijkheid wordt primair bepaald door de contractuele verplichtingen
+   • Er moet een direct causaal verband zijn tussen de schade en de beweerde contractbreuk
+   • De mate van zorgvuldigheid die van de betrokken partijen verwacht wordt, speelt een rol
 
 2. Recente ontwikkelingen:
-   Het is belangrijk op te merken dat recente wijzigingen in de Arbeidswet <a href="#" class="source-link" data-toggle="tooltip" title="Wijzigingen Arbeidswet 2023: Recente updates">[3]</a> nieuwe overwegingen hebben geïntroduceerd. Specifiek:
+   Het is belangrijk op te merken dat het vonnis van de Ondernemingsrechtbank <a href="#" class="source-link" data-toggle="tooltip" title="Vonnis Ondernemingsrechtbank: Schadegeval containers">[5]</a> nieuwe overwegingen heeft geïntroduceerd. Specifiek:
    
-   • Update 1 relevant voor de vraag
-   • Update 2 met mogelijke implicaties
+   • De aansprakelijkheid van tussenpersonen zoals terminal operators wordt strenger beoordeeld
+   • Er wordt meer nadruk gelegd op de implementatie van voorzorgsmaatregelen
 
 3. Praktische implicaties:
    Gezien deze factoren kunnen de praktische implicaties voor uw situatie het volgende omvatten:
    
-   • Implicatie 1
-   • Implicatie 2
-   • Implicatie 3
+   • Een grondigere documentatie van alle stappen in het logistieke proces is aan te raden
+   • Het kan nodig zijn om de aansprakelijkheidsclausules in uw contracten te herzien
+   • Overweeg het implementeren van extra veiligheidsmaatregelen tijdens overslag en transport
 
-Het is cruciaal om te onthouden dat hoewel deze informatie een algemene richtlijn biedt, de specifieke details van uw situatie een meer op maat gemaakte aanpak kunnen vereisen. Voor definitief juridisch advies wordt aanbevolen een arbeidsrechtspecialist te raadplegen.`;
+Het is cruciaal om te onthouden dat hoewel deze informatie een algemene richtlijn biedt, de specifieke details van uw situatie een meer op maat gemaakte aanpak kunnen vereisen. Voor definitief juridisch advies wordt aanbevolen een gespecialiseerde maritiem jurist te raadplegen.`;
 
                 const answerId = `followup-answer-${Date.now()}`;
                 $(`#${answerId}`).html(nl2br(answer));

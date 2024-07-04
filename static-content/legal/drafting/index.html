@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal Clause Assistant - Word Extension Demo</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        #word-interface {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin: 20px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        #word-toolbar {
+            background-color: #f3f3f3;
+            padding: 5px 10px;
+            border-bottom: 1px solid #ccc;
+            display: flex;
+            align-items: center;
+        }
+        #word-toolbar img {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+        #word-ribbon {
+            background-color: #f3f3f3;
+            border-bottom: 1px solid #ccc;
+            padding: 5px;
+        }
+        .ribbon-tab {
+            display: inline-block;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .ribbon-tab:hover {
+            background-color: #e0e0e0;
+        }
+        #ribbon-content {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .ribbon-button {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 5px;
+            padding: 5px;
+            border: 1px solid transparent;
+            cursor: pointer;
+        }
+        .ribbon-button:hover {
+            border-color: #ccc;
+            background-color: #f0f0f0;
+        }
+        .ribbon-button img {
+            width: 24px;
+            height: 24px;
+            margin-bottom: 2px;
+        }
+        .ribbon-button span {
+            font-size: 11px;
+        }
+        #document-container {
+            display: flex;
+            flex: 1;
+        }
+        #word-document {
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin: 20px;
+        }
+        #extension-sidebar {
+            width: 300px;
+            background-color: #f9f9f9;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            border-left: 1px solid #ccc;
+        }
+        #search-input {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        #search-results {
+            flex: 1;
+            overflow-y: auto;
+        }
+        .clause {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        .clause:hover {
+            background-color: #f0f0f0;
+        }
+        .clause-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+        }
+        .clause-actions button {
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            padding: 3px 5px;
+            font-size: 11px;
+            cursor: pointer;
+        }
+        .clause-actions button:hover {
+            background-color: #e0e0e0;
+        }
+        .clause-reference {
+            font-size: 11px;
+            color: #888;
+            margin-top: 5px;
+        }
+        .enhance-btn, .translate-btn {
+            background-color: #0078d4;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            font-size: 12px;
+            margin-right: 5px;
+        }
+        .enhance-btn:hover, .translate-btn:hover {
+            background-color: #005a9e;
+        }
+        .magic-wand, .translate-icon {
+            margin-right: 5px;
+        }
+        #status-bar {
+            background-color: #f3f3f3;
+            border-top: 1px solid #ccc;
+            padding: 5px 10px;
+            font-size: 12px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .feedback-container {
+            display: none;
+            margin-top: 10px;
+        }
+        .feedback-input {
+            width: calc(100% - 30px);
+            padding: 5px;
+        }
+        .feedback-submit {
+            background-color: #0078d4;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="word-interface">
+        <div id="word-toolbar">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Microsoft_Office_Word_%282019%E2%80%93present%29.svg/1200px-Microsoft_Office_Word_%282019%E2%80%93present%29.svg.png" alt="Word logo">
+            <strong>Contract.docx - Word</strong>
+        </div>
+        <div id="word-ribbon">
+            <div class="ribbon-tab">File</div>
+            <div class="ribbon-tab">Home</div>
+            <div class="ribbon-tab">Insert</div>
+            <div class="ribbon-tab">Design</div>
+            <div class="ribbon-tab">Layout</div>
+            <div class="ribbon-tab">References</div>
+            <div class="ribbon-tab">Mailings</div>
+            <div class="ribbon-tab">Review</div>
+            <div class="ribbon-tab">View</div>
+        </div>
+        <div id="ribbon-content">
+            <div class="ribbon-button">
+                <img src="https://img.icons8.com/ios/50/000000/paste.png" alt="Paste">
+                <span>Paste</span>
+            </div>
+            <div class="ribbon-button">
+                <img src="https://img.icons8.com/ios/50/000000/cut.png" alt="Cut">
+                <span>Cut</span>
+            </div>
+            <div class="ribbon-button">
+                <img src="https://img.icons8.com/ios/50/000000/copy.png" alt="Copy">
+                <span>Copy</span>
+            </div>
+            <div class="ribbon-button">
+                <img src="https://img.icons8.com/ios/50/000000/paragraph.png" alt="Paragraph">
+                <span>Paragraph</span>
+            </div>
+        </div>
+        <div id="document-container">
+            <div id="word-document" contenteditable="true">
+                <h1>Contract Agreement</h1>
+                <p>This is a sample contract document. Use the sidebar to search for and insert clauses.</p>
+            </div>
+            <div id="extension-sidebar">
+                <h2>Legal Clause Assistant</h2>
+                <input type="text" id="search-input" placeholder="Search for clauses...">
+                <div id="search-results"></div>
+            </div>
+        </div>
+        <div id="status-bar">
+            <span>Page 1 of 1</span>
+            <span>Words: 20</span>
+            <span>English (U.S.)</span>
+        </div>
+    </div>
+
+    <script>
+        const searchInput = document.getElementById('search-input');
+        const searchResults = document.getElementById('search-results');
+        const wordDocument = document.getElementById('word-document');
+
+        const clauseDatabase = {
+            'non-solicitation': [
+                "The Employee agrees that for a period of two (2) years following the termination of their employment, they will not directly or indirectly solicit, induce, recruit or encourage any of the Company's employees to leave their employment.",
+                "During the term of this Agreement and for a period of one (1) year thereafter, neither party shall solicit or attempt to solicit, directly or indirectly, any customers, clients, or business partners of the other party."
+            ],
+            'confidentiality': [
+                "The Recipient agrees to keep all Confidential Information strictly confidential and shall not disclose such Confidential Information to any third party without the prior written consent of the Disclosing Party.",
+                "Both parties agree to maintain the confidentiality of all proprietary information exchanged under this agreement and to use such information solely for the purposes of this agreement."
+            ],
+            'termination': [
+                "This Agreement may be terminated by either party upon thirty (30) days written notice to the other party.",
+                "In the event of a material breach of this Agreement, the non-breaching party may terminate this Agreement immediately upon written notice to the breaching party."
+            ]
+        };
+
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            searchResults.innerHTML = '';
+
+            for (const [key, clauses] of Object.entries(clauseDatabase)) {
+                if (key.includes(searchTerm)) {
+                    clauses.forEach((clause, index) => {
+                        const clauseElement = document.createElement('div');
+                        clauseElement.className = 'clause';
+                        clauseElement.innerHTML = `
+                            <div>${clause}</div>
+                            <div class="clause-reference">Source: Standard_Clauses_v2.docx</div>
+                            <div class="clause-actions">
+                                <button onclick="openContract()">Open Contract</button>
+                                <button onclick="copyClause('${clause}')">Copy</button>
+                                <button onclick="compareWithSelection('${clause}')">Compare with selection</button>
+                            </div>
+                        `;
+                        clauseElement.querySelector('div').addEventListener('click', () => insertClause(clause));
+                        searchResults.appendChild(clauseElement);
+                    });
+                }
+            }
+        });
+
+        function insertClause(clause) {
+            const clauseElement = document.createElement('p');
+            clauseElement.textContent = clause;
+            
+            const buttonContainer = document.createElement('div');
+            
+            const enhanceButton = document.createElement('button');
+            enhanceButton.className = 'enhance-btn';
+            enhanceButton.innerHTML = '<span class="magic-wand">🪄</span> Enhance with AI';
+            enhanceButton.addEventListener('click', () => enhanceClause(clauseElement, buttonContainer));
+
+            const translateButton = document.createElement('button');
+            translateButton.className = 'translate-btn';
+            translateButton.innerHTML = '<span class="translate-icon">🌐</span> Translate';
+            translateButton.addEventListener('click', () => translateClause(clauseElement));
+
+            buttonContainer.appendChild(enhanceButton);
+            buttonContainer.appendChild(translateButton);
+
+            wordDocument.appendChild(clauseElement);
+            wordDocument.appendChild(buttonContainer);
+        }
+
+        function enhanceClause(clauseElement, buttonContainer) {
+            const feedbackContainer = document.createElement('div');
+            feedbackContainer.className = 'feedback-container';
+            feedbackContainer.style.display = 'flex';
+            feedbackContainer.innerHTML = `
+                <input type="text" class="feedback-input" placeholder="Enter feedback...">
+                <button class="feedback-submit">➤</button>
+            `;
+            
+            const submitButton = feedbackContainer.querySelector('.feedback-submit');
+            submitButton.addEventListener('click', () => {
+                const feedback = feedbackContainer.querySelector('.feedback-input').value;
+                if (feedback) {
+                    setTimeout(() => {
+                        clauseElement.style.color = '#0078d4';
+                        clauseElement.style.fontWeight = 'bold';
+                        alert('Clause enhanced with AI based on feedback: ' + feedback);
+                        feedbackContainer.style.display = 'none';
+                    }, 1000);
+                }
+            });
+
+            buttonContainer.appendChild(feedbackContainer);
+        }
+
+        function translateClause(clauseElement) {
+            setTimeout(() => {
+                alert('Clause translated!');
+            }, 1000);
+        }
+
+        function openContract() {
+            alert('Opening the original contract...');
+        }
+
+        function copyClause(clause) {
+            navigator.clipboard.writeText(clause).then(() => {
+                alert('Clause copied to clipboard!');
+            });
+        }
+
+        function compareWithSelection(clause) {
+            const selection = window.getSelection().toString();
+            if (selection) {
+                alert(`Comparing:\n\nSelected text: ${selection}\n\nClause: ${clause}`);
+            } else {
+                alert('Please select some text in the document to compare.');
+            }
+        }
+    </script>
+</body>
+</html>
