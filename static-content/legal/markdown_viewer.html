@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Enhanced Markdown Viewer</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            height: 100%;
+        }
+        .markdown-viewer {
+            display: flex;
+            height: 100%;
+            background-color: white;
+            color: black;
+        }
+        .sidebar-container {
+            width: 250px;
+            height: 100%;
+            flex-shrink: 0;
+        }
+        .sidebar {
+            width: 250px;
+            padding: 1rem;
+            border-right: 1px solid #e2e8f0;
+            overflow-y: auto;
+            background-color: white;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 999;
+            transition: transform 0.3s ease-in-out;
+        }
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .sidebar h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .sidebar div {
+            cursor: pointer;
+            padding: 0.25rem 0;
+        }
+        .sidebar div.active {
+            font-weight: bold;
+        }
+        h1 { font-size: 2.25rem; font-weight: bold; margin-bottom: 1rem; margin-block: 0;}
+        h2 { font-size: 1.875rem; font-weight: 600; margin: 1.5rem 0 0.75rem; margin-block: 0; }
+        h3 { font-size: 1.5rem; font-weight: 500; margin: 1rem 0 0.5rem;  margin-block: 0; }
+        p { margin-bottom: 1rem; }
+        ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1rem; }
+        pre { background-color: #f1f5f9; border-radius: 0.25rem; padding: 1rem; margin-bottom: 1rem; overflow-x: auto; }
+        code { font-family: monospace; }
+        table { border-collapse: collapse; margin-bottom: 1rem; width: 100%; }
+        th, td { border: 1px solid #e2e8f0; padding: 0.5rem; }
+        th { background-color: #f1f5f9; font-weight: bold; }
+        .highlight {
+            animation: highlight 2s ease-in-out;
+        }
+        @keyframes highlight {
+            0% { background-color: yellow; }
+            100% { background-color: transparent; }
+        }
+        .hamburger {
+            display: none;
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 1000;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        @media (max-width: 1050px) {
+            .sidebar-container {
+                display: none;
+            }
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            .hamburger {
+                display: block;
+            }
+            .main-content {
+                padding-top: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="markdown-viewer">
+        <button class="hamburger">☰</button>
+        <div class="sidebar-container">
+            <div class="sidebar bg-light">
+                <h2>Table of Contents</h2>
+                <div id="toc"></div>
+            </div>
+        </div>
+        <div class="main-content" id="main-content"></div>
+    </div>
+
+    <script>
+        let markdown = '';
+        let activeSection = '';
+        let headings = [];
+        let parsedContent = [];
+        let isSidebarOpen = false;
+
+        function fetchMarkdown() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const file = urlParams.get('file');
+            if (file) {
+                fetch(file)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.text();
+                    })
+                    .then(content => {
+                        markdown = content;
+                        parseMarkdown(markdown);
+                        renderContent();
+                        renderTableOfContents();
+                        updatePageTitle();
+                    })
+                    .catch(error => {
+                        console.error("Could not fetch the markdown file:", error);
+                        markdown = "# Error\nCould not load the specified markdown file.";
+                        parseMarkdown(markdown);
+                        renderContent();
+                        updatePageTitle();
+                    });
+            } else {
+                markdown = "# Welcome\nPlease specify a markdown file using the 'file' URL parameter.";
+                parseMarkdown(markdown);
+                renderContent();
+                updatePageTitle();
+            }
+        }
+
+        function updatePageTitle() {
+            const h1 = headings.find(h => h.level === 1);
+            if (h1) {
+                document.getElementById('page-title').textContent = h1.text;
+            }
+        }
+
+        function parseMarkdown(md) {
+            if (typeof md !== 'string') {
+                console.error('Invalid markdown input. Expected a string, got:', typeof md);
+                return;
+            }
+
+            const lines = md.split('\n');
+            headings = [];
+            parsedContent = [];
+            let inTable = false;
+            let tableContent = [];
+
+            lines.forEach((line, index) => {
+                const headingMatch = line.match(/^(#{1,6})\s+(.+)$/);
+                if (headingMatch) {
+                    const level = headingMatch[1].length;
+                    const text = headingMatch[2];
+                    const id = text.toLowerCase().replace(/\s+/g, '-');
+                    headings.push({ level, text, id });
+                    parsedContent.push({ type: `h${level}`, content: text, id });
+                } else if (line.startsWith('- ') || line.startsWith('* ')) {
+                    parsedContent.push({ type: 'li', content: line.slice(2) });
+                } else if (line.startsWith('    ') || line.startsWith('\t')) {
+                    parsedContent.push({ type: 'code', content: line.trim() });
+                } else if (line.trim().startsWith('|') && line.trim().endsWith('|')) {
+                    if (!inTable) {
+                        inTable = true;
+                        tableContent = [];
+                    }
+                    tableContent.push(line);
+                } else if (inTable && line.trim() === '') {
+                    parsedContent.push({ type: 'table', content: tableContent });
+                    inTable = false;
+                    tableContent = [];
+                } else if (line.trim() !== '') {
+                    parsedContent.push({ type: 'p', content: line });
+                } else {
+                    parsedContent.push({ type: 'br' });
+                }
+            });
+
+            if (inTable) {
+                parsedContent.push({ type: 'table', content: tableContent });
+            }
+        }
+
+        function handleHeadingClick(id) {
+            activeSection = id;
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+                element.classList.add('highlight');
+                setTimeout(() => element.classList.remove('highlight'), 2000);
+            }
+            toggleSidebar();
+            updateActiveHeading();
+        }
+
+        function renderContent() {
+            const mainContent = document.getElementById('main-content');
+            mainContent.innerHTML = '';
+
+            parsedContent.forEach((item, index) => {
+                let element;
+                switch (item.type) {
+                    case 'h1':
+                        element = document.createElement('h1');
+                        element.className = 'display-4 mb-4';
+                        element.id = item.id;
+                        element.textContent = item.content;
+                        break;
+                    case 'h2':
+                        element = document.createElement('h2');
+                        element.className = 'h2 mb-3';
+                        element.id = item.id;
+                        element.textContent = item.content;
+                        break;
+                    case 'h3':
+                        element = document.createElement('h3');
+                        element.className = 'h3 mb-3';
+                        element.id = item.id;
+                        element.textContent = item.content;
+                        break;
+                    case 'h4':
+                        element = document.createElement('h4');
+                        element.className = 'h4 mb-3';
+                        element.id = item.id;
+                        element.textContent = item.content;
+                        break;
+                    case 'p':
+                        element = document.createElement('p');
+                        element.className = 'lead mb-3';
+                        element.innerHTML = parseBoldText(item.content);
+                        break;
+                    case 'li':
+                        if (!mainContent.lastElementChild || mainContent.lastElementChild.tagName !== 'UL') {
+                            const ul = document.createElement('ul');
+                            ul.className = 'list-group list-group-flush mb-3';
+                            mainContent.appendChild(ul);
+                        }
+                        element = document.createElement('li');
+                        element.className = 'list-group-item';
+                        element.innerHTML = parseBoldText(item.content);
+                        mainContent.lastElementChild.appendChild(element);
+                        return;
+                    case 'code':
+                        element = document.createElement('pre');
+                        element.className = 'bg-light p-3 mb-3';
+                        const code = document.createElement('code');
+                        code.textContent = item.content;
+                        element.appendChild(code);
+                        break;
+                    case 'br':
+                        element = document.createElement('br');
+                        break;
+                    case 'table':
+                        element = renderTable(item.content);
+                        break;
+                }
+                if (element) {
+                    mainContent.appendChild(element);
+                }
+            });
+        }
+
+        function renderTable(tableContent) {
+            const table = document.createElement('table');
+            table.className = 'table table-bordered table-hover mb-3';
+            const rows = tableContent.map(row => 
+                row.split('|').filter(cell => cell.trim() !== '').map(cell => cell.trim())
+            );
+            const headers = rows[0];
+            const body = rows.slice(2); // Skip the separator row
+
+            const thead = document.createElement('thead');
+            thead.className = 'thead-light';
+            const headerRow = document.createElement('tr');
+            headers.forEach(header => {
+                const th = document.createElement('th');
+                th.innerHTML = parseBoldText(header);
+                headerRow.appendChild(th);
+            });
+            thead.appendChild(headerRow);
+            table.appendChild(thead);
+
+            const tbody = document.createElement('tbody');
+            body.forEach(row => {
+                const tr = document.createElement('tr');
+                headers.forEach((_, j) => {
+                    const td = document.createElement('td');
+                    td.innerHTML = parseBoldText(row[j] || '');
+                    tr.appendChild(td);
+                });
+                tbody.appendChild(tr);
+            });
+            table.appendChild(tbody);
+
+            return table;
+        }
+
+        function parseBoldText(text) {
+            return text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        }
+
+        function renderTableOfContents() {
+            const toc = document.getElementById('toc');
+            toc.innerHTML = '';
+            headings.forEach((heading, index) => {
+                const div = document.createElement('div');
+                div.textContent = heading.text;
+                div.style.paddingLeft = `${(heading.level - 1) * 0.5}rem`;
+                div.onclick = () => handleHeadingClick(heading.id);
+                toc.appendChild(div);
+            });
+        }
+
+        function toggleSidebar() {
+            isSidebarOpen = !isSidebarOpen;
+            document.querySelector('.sidebar').classList.toggle('open', isSidebarOpen);
+        }
+
+        function updateActiveHeading() {
+            document.querySelectorAll('#toc div').forEach(div => {
+                div.classList.remove('active');
+            });
+            const activeHeading = document.querySelector(`#toc div:nth-child(${headings.findIndex(h => h.id === activeSection) + 1})`);
+            if (activeHeading) {
+                activeHeading.classList.add('active');
+            }
+        }
+
+        document.querySelector('.hamburger').addEventListener('click', toggleSidebar);
+
+        // Handle clicks outside the sidebar to close it
+        document.addEventListener('click', function(event) {
+            const sidebar = document.querySelector('.sidebar');
+            const hamburger = document.querySelector('.hamburger');
+            if (isSidebarOpen && !sidebar.contains(event.target) && event.target !== hamburger) {
+                toggleSidebar();
+            }
+        });
+
+        // Initial load
+        fetchMarkdown();
+    </script>
+</body>
+</html>

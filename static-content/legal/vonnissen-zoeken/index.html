@@ -176,12 +176,13 @@
                 
                 // Simulated sources
                 sources = [
-                    { id: 1, title: "Vonnis Rechtbank van Antwerpen: Buitencontractuele aansprakelijkheid", type: "Vonnis", relevance: "95%", summary: "Uitspraak over schadevergoeding bij contractbreuk", icon: "bi-gavel", filename: "Vonnis_Antwerpen_2023_06_27.pdf", excerpt: "De rechtbank oordeelde dat <span class='highlight'>de eiser recht heeft op schadevergoeding</span> wegens het niet naleven van de contractuele verplichtingen." },
-                    { id: 2, title: "Conclusie inzake maritiem geschil", type: "Conclusie", relevance: "87%", summary: "Argumentatie over aansprakelijkheid bij containervervoer", icon: "bi-file-earmark-text", filename: "Conclusie_Maritiem_2023_05_15.pdf", excerpt: "In deze conclusie wordt beargumenteerd dat <span class='highlight'>de rederij niet aansprakelijk kan worden gesteld</span> voor de schade aan de lading." },
-                    { id: 3, title: "Advies Hof van Cassatie: Berekening ontslagvergoeding", type: "Advies", relevance: "82%", summary: "Richtlijnen voor het berekenen van ontslagvergoedingen", icon: "bi-chat-text", filename: "Advies_Cassatie_Ontslagvergoeding_2022.pdf", excerpt: "Het Hof adviseert dat <span class='highlight'>variabele bonussen moeten worden meegenomen</span> in de berekening van de ontslagvergoeding." },
-                    { id: 4, title: "EU-richtlijn Maritiem Transport", type: "EU Richtlijn", relevance: "78%", summary: "Europese richtlijn over aansprakelijkheid in maritiem transport", icon: "bi-flag", filename: "EU_Richtlijn_Maritiem_Transport_2023.pdf", excerpt: "De richtlijn stelt dat <span class='highlight'>vervoerders aansprakelijk zijn voor verlies of schade</span> aan goederen tijdens het transport, tenzij anders overeengekomen." },
-                    { id: 5, title: "Vonnis Ondernemingsrechtbank: Schadegeval containers", type: "Vonnis", relevance: "75%", summary: "Uitspraak over aansprakelijkheid bij schade aan containers", icon: "bi-gavel", filename: "Vonnis_Ondernemingsrechtbank_2023_04_10.pdf", excerpt: "De rechtbank oordeelde dat <span class='highlight'>de terminal operator aansprakelijk is</span> voor de schade aan de containers tijdens de overslag." }
-                ];
+        { id: 1, title: "Vonnis Hof van Beroep Antwerpen: Aansprakelijkheid bij Containervervoer", type: "Vonnis", relevance: "95%", summary: "Uitspraak over aansprakelijkheidsverdeling bij schade aan containers tijdens zeetransport", icon: "bi-gavel", filename: "Vonnis_HvB_Antwerpen_2023_09_15.pdf", excerpt: "Het Hof oordeelde dat <span class='highlight'>de vervoerder primair aansprakelijk is voor schade aan containers</span>, tenzij overmacht kan worden aangetoond." },
+        { id: 2, title: "Conclusie Advocaat-Generaal inzake Rederij vs. Terminal Operator", type: "Conclusie", relevance: "92%", summary: "Analyse van aansprakelijkheidsverdeling tussen rederij en terminal operator", icon: "bi-file-earmark-text", filename: "Conclusie_AG_Rederij_Terminal_2023_07_22.pdf", excerpt: "De Advocaat-Generaal concludeert dat <span class='highlight'>de aansprakelijkheid gedeeld moet worden tussen de rederij en de terminal operator</span>, waarbij de mate van zorg een cruciale factor is." },
+        { id: 3, title: "EU-verordening 2023/789 inzake Maritiem Goederenvervoer", type: "EU Verordening", relevance: "88%", summary: "Nieuwe EU-regels voor aansprakelijkheid bij maritiem containervervoer", icon: "bi-flag", filename: "EU_Verordening_2023_789.pdf", excerpt: "De verordening stelt dat <span class='highlight'>vervoerders verplicht zijn alle redelijke maatregelen te nemen om schade aan containers te voorkomen</span>, en legt strengere documentatie-eisen op." },
+        { id: 4, title: "Advies Raad voor de Scheepvaart: Veiligheidsprotocollen Containervervoer", type: "Advies", relevance: "85%", summary: "Aanbevelingen voor verbetering van veiligheidsprotocollen in containervervoer", icon: "bi-chat-text", filename: "Advies_RvS_Veiligheid_Containers_2023.pdf", excerpt: "De Raad adviseert <span class='highlight'>strengere controles op de stuwage van containers</span> en benadrukt het belang van real-time monitoring tijdens transport." },
+        { id: 5, title: "Vonnis Rechtbank Rotterdam: Schadeclaim Containervervoer", type: "Vonnis", relevance: "82%", summary: "Uitspraak over schadevergoeding bij verlies van containers op zee", icon: "bi-gavel", filename: "Vonnis_Rb_Rotterdam_2023_06_30.pdf", excerpt: "De rechtbank oordeelde dat <span class='highlight'>de rederij aansprakelijk is voor het verlies van containers</span>, maar de schadevergoeding werd gematigd vanwege extreme weersomstandigheden." }
+    ];
+
 
                 $('#sources-list').empty();
                 sources.forEach(function(source, index) {
@@ -257,36 +258,43 @@
                     `);
                 });
             }
-
             function generateAnswer(question, selectedSources) {
-                const answer = `Op basis van de geselecteerde bronnen, hier is een uitgebreid antwoord op uw vraag:
+    const answer = `Op basis van de geselecteerde bronnen, hier is een uitgebreid antwoord op uw vraag over de belangrijkste factoren bij het bepalen van aansprakelijkheid bij schade aan containers tijdens maritiem transport:
 
-1. Juridisch kader:
-   Het primaire juridische kader dat van toepassing is op deze situatie is te vinden in het vonnis van de Rechtbank van Antwerpen <a href="#" class="source-link" data-toggle="tooltip" title="Vonnis Rechtbank van Antwerpen: Buitencontractuele aansprakelijkheid">[1]</a>. Dit vonnis stelt dat de eiser recht heeft op schadevergoeding wegens het niet naleven van contractuele verplichtingen.
+1. Primaire aansprakelijkheid:
+   Volgens het vonnis van het Hof van Beroep Antwerpen <a href="#" class="source-link" data-toggle="tooltip" title="Vonnis Hof van Beroep Antwerpen: Aansprakelijkheid bij Containervervoer">[1]</a>, is de vervoerder primair aansprakelijk voor schade aan containers, tenzij overmacht kan worden aangetoond. Dit vormt een belangrijk uitgangspunt bij de beoordeling van aansprakelijkheid.
 
-2. Maritieme context:
-   In de conclusie inzake het maritieme geschil <a href="#" class="source-link" data-toggle="tooltip" title="Conclusie inzake maritiem geschil: Argumentatie over aansprakelijkheid bij containervervoer">[2]</a> wordt beargumenteerd dat de rederij niet aansprakelijk kan worden gesteld voor de schade aan de lading. Dit is een belangrijk precedent voor soortgelijke zaken.
+2. Gedeelde aansprakelijkheid:
+   De conclusie van de Advocaat-Generaal <a href="#" class="source-link" data-toggle="tooltip" title="Conclusie Advocaat-Generaal inzake Rederij vs. Terminal Operator">[2]</a> wijst op de mogelijkheid van gedeelde aansprakelijkheid tussen rederij en terminal operator. De mate van zorg die elke partij heeft betracht, is hierbij een cruciale factor.
 
-3. Europese regelgeving:
-   De EU-richtlijn Maritiem Transport <a href="#" class="source-link" data-toggle="tooltip" title="EU-richtlijn Maritiem Transport: Europese richtlijn over aansprakelijkheid in maritiem transport">[4]</a> stelt dat vervoerders aansprakelijk zijn voor verlies of schade aan goederen tijdens het transport, tenzij anders overeengekomen. Dit vormt een belangrijk kader voor de beoordeling van aansprakelijkheid in maritieme geschillen.
+3. Preventieve maatregelen:
+   De nieuwe EU-verordening 2023/789 <a href="#" class="source-link" data-toggle="tooltip" title="EU-verordening 2023/789 inzake Maritiem Goederenvervoer">[3]</a> legt de nadruk op de verplichting van vervoerders om alle redelijke maatregelen te nemen ter voorkoming van schade. Dit introduceert een strengere zorgplicht voor vervoerders.
 
-4. Recente rechtspraak:
-   Het vonnis van de Ondernemingsrechtbank inzake het schadegeval met containers <a href="#" class="source-link" data-toggle="tooltip" title="Vonnis Ondernemingsrechtbank: Schadegeval containers">[5]</a> oordeelde dat de terminal operator aansprakelijk is voor de schade aan de containers tijdens de overslag. Dit kan relevant zijn voor vergelijkbare gevallen van schade tijdens goederenbehandeling.
+4. Veiligheidsprotocollen:
+   Het advies van de Raad voor de Scheepvaart <a href="#" class="source-link" data-toggle="tooltip" title="Advies Raad voor de Scheepvaart: Veiligheidsprotocollen Containervervoer">[4]</a> benadrukt het belang van strikte veiligheidsprotocollen, met name op het gebied van stuwage en monitoring. Het volgen van deze protocollen kan van invloed zijn op de beoordeling van aansprakelijkheid.
 
-5. Bredere implicaties:
-   Het advies van het Hof van Cassatie over de berekening van ontslagvergoedingen <a href="#" class="source-link" data-toggle="tooltip" title="Advies Hof van Cassatie: Berekening ontslagvergoeding">[3]</a>, hoewel niet direct gerelateerd aan maritiem recht, illustreert hoe variabele factoren kunnen worden meegenomen in juridische berekeningen. Dit principe zou mogelijk kunnen worden toegepast op de berekening van schadevergoedingen in maritieme zaken.
+5. Externe factoren:
+   De uitspraak van de Rechtbank Rotterdam <a href="#" class="source-link" data-toggle="tooltip" title="Vonnis Rechtbank Rotterdam: Schadeclaim Containervervoer">[5]</a> toont aan dat externe factoren, zoals extreme weersomstandigheden, kunnen leiden tot een matiging van de schadevergoeding, zelfs als de rederij aansprakelijk wordt geacht.
 
-Gezien deze informatie, zijn dit de aanbevelingen:
-1. Beoordeel zorgvuldig de contractuele verplichtingen van alle betrokken partijen in het licht van het vonnis van de Rechtbank van Antwerpen.
-2. Overweeg de argumenten gebruikt in de maritieme conclusie bij het opstellen van uw eigen argumentatie over aansprakelijkheid.
-3. Houd rekening met de EU-richtlijn bij het beoordelen van de aansprakelijkheid van de vervoerder.
-4. Gebruik het vonnis van de Ondernemingsrechtbank als precedent indien uw zaak betrekking heeft op schade tijdens overslag.
-5. Overweeg hoe variabele factoren, zoals in het advies van het Hof van Cassatie, kunnen worden toegepast op de berekening van eventuele schadevergoedingen.
+Recente uitspraken en EU-richtlijnen beïnvloeden deze beoordeling als volgt:
 
-Het is belangrijk op te merken dat hoewel deze bronnen waardevolle inzichten bieden, elke zaak uniek is. Voor een definitief juridisch advies is het aan te raden een gespecialiseerde maritiem jurist te raadplegen die alle specifieke details van uw zaak kan beoordelen.`;
+1. Strengere zorgplicht: Er is een trend naar een strengere interpretatie van de zorgplicht van vervoerders, zoals blijkt uit de EU-verordening 2023/789.
+2. Gedeelde verantwoordelijkheid: Recente jurisprudentie, zoals de conclusie van de Advocaat-Generaal, wijst op een verschuiving naar het erkennen van gedeelde verantwoordelijkheden in de logistieke keten.
+3. Belang van documentatie: De nieuwe EU-regels leggen meer nadruk op uitgebreide documentatie, wat van invloed kan zijn op de bewijslast bij aansprakelijkheidsclaims.
+4. Focus op preventie: Uitspraken en adviezen leggen steeds meer nadruk op preventieve maatregelen, wat de lat hoger legt voor wat als 'redelijke zorg' wordt beschouwd.
+5. Erkenning van externe factoren: Rechtbanken lijken meer geneigd om externe factoren mee te wegen bij het bepalen van de uiteindelijke aansprakelijkheid en schadevergoeding.
 
-                return answer;
-            }
+Gezien deze ontwikkelingen is het voor alle betrokken partijen in het maritieme containervervoer van groot belang om:
+- Hun veiligheidsprotocollen regelmatig te evalueren en aan te scherpen
+- Uitgebreide documentatie bij te houden van alle genomen voorzorgsmaatregelen
+- Samenwerkingsverbanden te versterken om de gedeelde verantwoordelijkheid te waarborgen
+- Te investeren in moderne monitoring- en veiligheidstechnologieën
+- Verzekeringen en contracten te herzien in het licht van de nieuwste juridische interpretaties
+
+Voor een definitieve beoordeling van aansprakelijkheid in specifieke gevallen blijft het essentieel om een gespecialiseerde maritiem jurist te raadplegen, gezien de complexiteit en voortdurende ontwikkeling van dit rechtsgebied.`;
+
+    return answer;
+}
 
             // Follow-up Form Submission
             $('#followup-form').submit(function(e) {
@@ -304,35 +312,51 @@ Het is belangrijk op te merken dat hoewel deze bronnen waardevolle inzichten bie
 
             // Simulate Follow-up Answer
             function simulateFollowupAnswer(query) {
-                const answer = `Hier is een gedetailleerd antwoord op uw vervolgvraag:
+    const answer = `Hier is een gedetailleerd antwoord op uw vervolgvraag over ${query}:
 
-1. Specifieke toepassing:
-   Uw vraag raakt aan een genuanceerd aspect van het maritiem recht. Gebaseerd op <a href="#" class="source-link" data-toggle="tooltip" title="Vonnis Rechtbank van Antwerpen: Buitencontractuele aansprakelijkheid">[1]</a>, kunnen we afleiden dat ${query.toLowerCase().includes('vereiste') ? 'de vereisten zijn' : 'de situatie als volgt is'}:
+1. Documentatievereisten:
+   Gebaseerd op de EU-verordening 2023/789 <a href="#" class="source-link" data-toggle="tooltip" title="EU-verordening 2023/789 inzake Maritiem Goederenvervoer">[3]</a>, moeten rederijen de volgende documentatie voorbereiden:
    
-   • De aansprakelijkheid wordt primair bepaald door de contractuele verplichtingen
-   • Er moet een direct causaal verband zijn tussen de schade en de beweerde contractbreuk
-   • De mate van zorgvuldigheid die van de betrokken partijen verwacht wordt, speelt een rol
+   • Gedetailleerde laadplannen en gewichtsverdeling van containers
+   • Logboeken van uitgevoerde veiligheidscontroles voor en tijdens het transport
+   • Certificaten van containerinspecties en onderhoud
+   • Documentatie van weersomstandigheden en genomen voorzorgsmaatregelen
+   • Bewijzen van training en certificering van bemanning in ladingzekering
 
-2. Recente ontwikkelingen:
-   Het is belangrijk op te merken dat het vonnis van de Ondernemingsrechtbank <a href="#" class="source-link" data-toggle="tooltip" title="Vonnis Ondernemingsrechtbank: Schadegeval containers">[5]</a> nieuwe overwegingen heeft geïntroduceerd. Specifiek:
+2. Aanvullende maatregelen:
+   Het advies van de Raad voor de Scheepvaart <a href="#" class="source-link" data-toggle="tooltip" title="Advies Raad voor de Scheepvaart: Veiligheidsprotocollen Containervervoer">[4]</a> suggereert de volgende aanvullende stappen:
    
-   • De aansprakelijkheid van tussenpersonen zoals terminal operators wordt strenger beoordeeld
-   • Er wordt meer nadruk gelegd op de implementatie van voorzorgsmaatregelen
+   • Implementatie van real-time monitoringsystemen voor containerstabiliteit
+   • Regelmatige stresstest-simulaties voor extreme weersomstandigheden
+   • Samenwerkingsprotocollen met havens en terminal operators voor gedeelde verantwoordelijkheid
 
-3. Praktische implicaties:
-   Gezien deze factoren kunnen de praktische implicaties voor uw situatie het volgende omvatten:
+3. Juridische voorzorgsmaatregelen:
+   Gezien de conclusie van de Advocaat-Generaal <a href="#" class="source-link" data-toggle="tooltip" title="Conclusie Advocaat-Generaal inzake Rederij vs. Terminal Operator">[2]</a>, worden de volgende juridische stappen aanbevolen:
    
-   • Een grondigere documentatie van alle stappen in het logistieke proces is aan te raden
-   • Het kan nodig zijn om de aansprakelijkheidsclausules in uw contracten te herzien
-   • Overweeg het implementeren van extra veiligheidsmaatregelen tijdens overslag en transport
+   • Herziening van contracten met verladers en terminal operators om aansprakelijkheid duidelijk af te bakenen
+   • Opstellen van gedetailleerde verklaringen van due diligence voor elke reis
+   • Voorbereiden van calamiteitenplannen en communicatieprotocollen voor noodsituaties
 
-Het is cruciaal om te onthouden dat hoewel deze informatie een algemene richtlijn biedt, de specifieke details van uw situatie een meer op maat gemaakte aanpak kunnen vereisen. Voor definitief juridisch advies wordt aanbevolen een gespecialiseerde maritiem jurist te raadplegen.`;
+4. Technologische investeringen:
+   Om aan te sluiten bij de strengere zorgplicht zoals benadrukt in recente uitspraken, kunnen rederijen overwegen te investeren in:
+   
+   • Geavanceerde weersvoorspellingssystemen geïntegreerd met routeplanningsoftware
+   • IoT-sensoren voor continue monitoring van containercondities
+   • AI-gestuurde systemen voor optimale laadconfiguraties en risico-analyse
 
-                const answerId = `followup-answer-${Date.now()}`;
-                $(`#${answerId}`).html(nl2br(answer));
-                $('[data-toggle="tooltip"]').tooltip();
-            }
+5. Verzekering en risicospreiding:
+   In het licht van de uitspraak van de Rechtbank Rotterdam <a href="#" class="source-link" data-toggle="tooltip" title="Vonnis Rechtbank Rotterdam: Schadeclaim Containervervoer">[5]</a>, is het raadzaam om:
+   
+   • Verzekeringspolissen te herzien om dekking voor extreme weersomstandigheden te optimaliseren
+   • Mogelijkheden voor herverzekering te onderzoeken
+   • Risicospreidingsovereenkomsten met partners in de logistieke keten te overwegen
 
+Door deze maatregelen te implementeren, kunnen rederijen hun positie aanzienlijk versterken in het geval van aansprakelijkheidsclaims. Het is echter van cruciaal belang om deze maatregelen regelmatig te evalueren en aan te passen aan de zich ontwikkelende juridische en operationele landschap van het maritieme containervervoer.`;
+
+    const answerId = `followup-answer-${Date.now()}`;
+    $(`#${answerId}`).html(nl2br(answer));
+    $('[data-toggle="tooltip"]').tooltip();
+}
             // Suggested Question Click
             $(document).on('click', '.suggested-question', function() {
                 const question = $(this).text();
